@@ -14,8 +14,6 @@ namespace MangoEngine
         /*Fields*/
         protected string _sourceName;
         protected string _currentUrl;
-        protected string _currentImgUrl;
-        protected string _currentImgFilename;
         protected string _baseUrl;
         protected int _pagesCount;
         protected Encoding _encodingType;
@@ -36,18 +34,6 @@ namespace MangoEngine
         {
             get { return _currentUrl; }
             protected set { _currentUrl = value; }
-        }
-
-        public string CurrentImgUrl
-        {
-            get { return _currentImgUrl; }
-            protected set { _currentImgUrl = value; }
-        }
-
-        public string CurrentImgFilename
-        {
-            get { return _currentImgFilename; }
-            protected set { _currentImgFilename = value; }
         }
 
         public string BaseUrl
@@ -78,8 +64,6 @@ namespace MangoEngine
             /*Default Constructor. Accepts no parameters*/
             _sourceName = string.Empty;
             _currentUrl = string.Empty;
-            _currentImgUrl = string.Empty;
-            _currentImgFilename = string.Empty;
             _baseUrl = string.Empty;
             _pagesCount = 0;
             _encodingType = Encoding.UTF8;
@@ -104,22 +88,9 @@ namespace MangoEngine
 
         public abstract Task<bool> NextPageAsync();
 
-        protected abstract string GetImageUrl();
+        public abstract string GetImageUrl();
 
-        protected abstract string GetImageUrlAsync();
-
-        protected virtual string GetFileName(string imgUrl)
-        {
-            /*Get the filename with the filetype from a image url*/
-            //Strat: Scan from the bottom up for the last /.
-            int lastSlashIndex = imgUrl.LastIndexOf('/');
-
-            //create a substr without that last slash
-            string filename = imgUrl.Substring(lastSlashIndex + 1);
-
-            //return a copy of that.
-            return filename;
-        }
+        public abstract string GetImageUrlAsync();
 
         #endregion
     }
