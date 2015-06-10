@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MangoEngine
 {
-    public class Class1
+    public abstract class MangoChapter
     {
     }
 }
