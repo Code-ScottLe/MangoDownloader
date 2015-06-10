@@ -73,24 +73,42 @@ namespace MangoEngine
 
         /*Constructors*/
 
+        protected MangoChapter()
+        {
+            /*Default Constructor. Accepts no parameters*/
+            _sourceName = string.Empty;
+            _currentUrl = string.Empty;
+            _currentImgUrl = string.Empty;
+            _currentImgFilename = string.Empty;
+            _baseUrl = string.Empty;
+            _pagesCount = 0;
+            _encodingType = Encoding.UTF8;
+        }
         #endregion
+
+        protected MangoChapter(string url) : this()
+        {
+            /*Overloaded Constructor. Accept a string of URL for a Mango Chapter.*/
+            _baseUrl = url;
+            _currentUrl = url;
+        }
 
         #region Methods
 
         /*Methods*/
-        public abstract void Init();
+        internal abstract void Init();
 
-        public abstract Task InitAsync();
+        internal abstract Task InitAsync();
 
         public abstract bool NextPage();
 
         public abstract Task<bool> NextPageAsync();
 
-        public abstract string GetImageUrl();
+        protected abstract string GetImageUrl();
 
-        public abstract string GetImageUrlAsync();
+        protected abstract string GetImageUrlAsync();
 
-        public virtual string GetFileName(string imgUrl)
+        protected virtual string GetFileName(string imgUrl)
         {
             /*Get the filename with the filetype from a image url*/
             //Strat: Scan from the bottom up for the last /.
@@ -102,8 +120,6 @@ namespace MangoEngine
             //return a copy of that.
             return filename;
         }
-
-
 
         #endregion
     }
