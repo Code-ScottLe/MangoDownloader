@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace MangoEngine
 {
@@ -91,6 +92,31 @@ namespace MangoEngine
         public abstract string GetImageUrl();
 
         public abstract Task<string> GetImageUrlAsync();
+
+        public virtual Encoding GetEncoding(HttpResponseMessage responseMessage)
+        {
+            /*Get the Encoding of the WebSite from the HttpResponseMessage*/
+
+            //Get the Content Headers
+            var responseContentHeader = responseMessage.Content.Headers;
+
+            //Get the Content Type Header
+            string contentTypeHeader = responseContentHeader.ContentType.ToString();
+
+            //get the encoding type
+            string contentEncodingStr = contentTypeHeader.Substring(contentTypeHeader.IndexOf("=") + 1);
+            Encoding contentEncoding = Encoding.GetEncoding(contentEncodingStr);
+
+            //Return the encoding type
+            return contentEncoding;
+
+        }
+
+        public virtual string GetCompression(HttpResponseMessage responseMessage)
+        {
+            /*GEt the Compression type of the Website fro the HttpResponseMessage*/
+            return responseMessage.Content.Headers.ContentEncoding.ElementAt(0);
+        }
 
         #endregion
     }

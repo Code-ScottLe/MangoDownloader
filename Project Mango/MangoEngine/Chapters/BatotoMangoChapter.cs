@@ -12,6 +12,8 @@ namespace MangoEngine.Chapters
 
         #region Fields
         /*Fields*/
+        private List<string> _pagesLink;
+        private int _currentPageIndex;
         #endregion
 
         #region Properties
@@ -20,6 +22,20 @@ namespace MangoEngine.Chapters
 
         #region Constructors
         /*Constructors*/
+
+        protected BatotoMangoChapter() : base()
+        {
+            /*Default Constructor*/
+            _pagesLink = new List<string>();
+            _currentPageIndex = 0;
+        }
+
+        public BatotoMangoChapter(string url) : base(url)
+        {
+            /*Overloaded Constructors, accept a string of batoto url*/
+            _pagesLink = new List<string>();
+            _currentPageIndex = 0;
+        }
         #endregion
 
         #region Methods
