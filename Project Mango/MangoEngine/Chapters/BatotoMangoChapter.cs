@@ -74,7 +74,7 @@ namespace MangoEngine.Chapters
 
                 //Load up the Stream as HTML file.
                 HtmlDocument batotoHtmlDocument = new HtmlDocument();
-                batotoHtmlDocument.Load(batotoStream);
+                batotoHtmlDocument.Load(batotoStream, EncodingType);
 
                 /*Batoto has the list of all the pages with links in a drop down*/
                 //Get the select node which contains all the pages with links
@@ -104,22 +104,80 @@ namespace MangoEngine.Chapters
 
         public override bool NextPage()
         {
-            throw new NotImplementedException();
+            return NextPageAsync().Result;
         }
 
         public override async Task<bool> NextPageAsync()
         {
-            throw new NotImplementedException();
+            /*Get to the next page of the current chapter asynchrounously*/
+
+            return await new Task<bool>(() =>
+            {
+                //Increment the current page index
+                _currentPageIndex++;
+
+                //Verify that we haven't reached the end of the chapter
+                if (_currentPageIndex >= PagesCount)
+                {
+                    return false;
+                }
+
+                CurrentUrl = _pagesLink[_currentPageIndex];
+                return true;
+            });
+
         }
 
         public override string GetImageUrl()
         {
-            throw new NotImplementedException();
+            /*Get the image url of the page inside the current url synchronously*/
+            return GetImageUrlAsync().Result;
         }
 
         public override async Task<string> GetImageUrlAsync()
         {
-            throw new NotImplementedException();
+            /*Get the image url of the page inside the current url asynchronously*/
+            
+            //Intialize the client.
+            HttpClient myClient = new HttpClient();
+
+            try
+            {
+                //Get the Stream to the website.
+                Stream batotoStream = await myClient.GetStreamAsync(CurrentUrl);
+
+                //Load up the Stream as the Html
+                HtmlDocument batotoHtmlDocument = new HtmlDocument();
+                batotoHtmlDocument.Load(batotoStream,EncodingType);
+
+                /* Batoto holds the page's image url inside the img node with the id "comic_page" */
+                //Get the img node.
+                HtmlNode imgNode = batotoHtmlDocument.DocumentNode.SelectSingleNode("//img[@id = \"comic_page\"]");
+
+                //Check if the node is valid
+                if (imgNode == null)
+                {
+                    throw new MangoException("Can't find the img comic_page link!");
+                }
+
+                //Node was found, get the link out.
+                string imgUrl = imgNode.Attributes["src"].Value;
+
+                //return the url
+                return imgUrl;
+
+            }
+
+            catch (Exception e)
+            {
+                throw new MangoException("Get Image URL Failed!", e);
+            }
+
+            finally
+            {
+                //Done with everything, clean up the client
+                myClient.Dispose();
+            }
         }
 
         #endregion
