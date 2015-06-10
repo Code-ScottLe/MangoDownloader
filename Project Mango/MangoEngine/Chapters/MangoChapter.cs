@@ -90,7 +90,7 @@ namespace MangoEngine
 
         public abstract string GetImageUrl();
 
-        public abstract string GetImageUrlAsync();
+        public abstract Task<string> GetImageUrlAsync();
 
         #endregion
     }

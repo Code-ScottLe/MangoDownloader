@@ -24,6 +24,37 @@ namespace MangoEngine.Chapters
 
         #region Methods
         /*Methods*/
+
+        internal override void Init()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal override async Task InitAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool NextPage()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override async Task<bool> NextPageAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetImageUrl()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override async Task<string> GetImageUrlAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }
