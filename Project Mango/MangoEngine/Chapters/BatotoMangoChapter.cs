@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using HtmlAgilityPack;
+using MangoEngine.Exceptions;
 
 namespace MangoEngine.Chapters
 {
@@ -48,7 +51,28 @@ namespace MangoEngine.Chapters
 
         internal override async Task InitAsync()
         {
-            throw new NotImplementedException();
+            /*Intialize current instance of BatotoMangoChapter asynchronously*/
+
+            //initialize the Httpclient
+            HttpClient myClient = new HttpClient();
+
+            //Set the timeout of the client (30 secs)
+            myClient.Timeout = new TimeSpan(0,0,0,30);
+
+            try
+            {
+
+            }
+
+            catch (Exception)
+            {
+                throw;
+            }
+
+            finally
+            {
+
+            }
         }
 
         public override bool NextPage()

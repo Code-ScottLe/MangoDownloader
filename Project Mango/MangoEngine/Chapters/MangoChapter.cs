@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
 
-namespace MangoEngine
+namespace MangoEngine.Chapters
 {
     public abstract class MangoChapter
     {
