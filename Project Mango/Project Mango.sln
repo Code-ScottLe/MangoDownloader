@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project Mango", "Project Mango\Project Mango.csproj", "{D9131646-529A-48AB-9296-695CFA258AC2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectMango.Windows (WPF - Desktop)", "Project Mango\ProjectMango.Windows (WPF - Desktop).csproj", "{D9131646-529A-48AB-9296-695CFA258AC2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MangoEngine", "MangoEngine", "{BBAF424F-CA30-42E1-AC5D-1CC5EEB55D57}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectMango.Windows (WPF - Desktop)", "ProjectMango.Windows (WPF - Desktop)", "{949C6CEC-FFB9-421D-BE6C-531E9282D177}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +22,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D9131646-529A-48AB-9296-695CFA258AC2} = {949C6CEC-FFB9-421D-BE6C-531E9282D177}
 	EndGlobalSection
 EndGlobal
