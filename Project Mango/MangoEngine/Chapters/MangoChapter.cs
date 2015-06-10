@@ -12,11 +12,11 @@ namespace MangoEngine
 
         #region Fields
         /*Fields*/
-        protected string _sourceName;
-        protected string _currentUrl;
-        protected string _baseUrl;
-        protected int _pagesCount;
-        protected Encoding _encodingType;
+        private string _sourceName;
+        private string _currentUrl;
+        private string _baseUrl;
+        private int _pagesCount;
+        private Encoding _encodingType;
 
         #endregion
 

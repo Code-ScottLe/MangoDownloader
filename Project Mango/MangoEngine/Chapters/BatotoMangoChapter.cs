@@ -6,7 +6,24 @@ using System.Threading.Tasks;
 
 namespace MangoEngine.Chapters
 {
-    class BatotoMangoChapter
+    public class BatotoMangoChapter : MangoChapter
     {
+        /*Represent a manga chapter from Batoto*/
+
+        #region Fields
+        /*Fields*/
+        #endregion
+
+        #region Properties
+        /*Properties*/
+        #endregion
+
+        #region Constructors
+        /*Constructors*/
+        #endregion
+
+        #region Methods
+        /*Methods*/
+        #endregion
     }
 }
