@@ -111,7 +111,7 @@ namespace MangoEngine.Chapters
         {
             /*Get to the next page of the current chapter asynchrounously*/
 
-            return await new Task<bool>(() =>
+            return await Task.Factory.StartNew<bool>(() =>
             {
                 //Increment the current page index
                 _currentPageIndex++;
