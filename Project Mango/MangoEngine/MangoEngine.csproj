@@ -46,6 +46,7 @@
     <Compile Include="Chapters\BatotoMangoChapter.cs" />
     <Compile Include="Chapters\MangoChapter.cs" />
     <Compile Include="Exceptions\MangoException.cs" />
+    <Compile Include="Factories\MangoChapterFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
