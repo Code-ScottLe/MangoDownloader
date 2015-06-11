@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
+using MangoEngine.Factories;
 
 namespace MangoEngine.Chapters
 {
@@ -54,6 +55,15 @@ namespace MangoEngine.Chapters
             get { return _encodingType; }
             set { _encodingType = value; }
         }
+
+        public static MangoChapterFactory Factory
+        {
+            get
+            {
+                return new MangoChapterFactory();
+            }
+        }
+
         #endregion
 
         #region Constructors
