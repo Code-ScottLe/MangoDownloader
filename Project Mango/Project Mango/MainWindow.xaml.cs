@@ -41,8 +41,8 @@ namespace Project_Mango
             if (e.PropertyName == "Log")
             {
                 /*Log changed, update the log*/
-                DetailedProgressTextBox.Document.Blocks.Clear();
-                DetailedProgressTextBox.Document.Blocks.Add(new Paragraph(new Run(downloader.Log)));
+                DetailedProgressTextBox.AppendText(downloader.Log);
+                DetailedProgressTextBox.ScrollToEnd();
             }
 
             if (e.PropertyName == "CompletedPercentage")
@@ -66,7 +66,7 @@ namespace Project_Mango
 
             if (dialog.ShowDialog().GetValueOrDefault())
             {
-                SaveLocationTextBox.Text = dialog.FileName;
+                SaveLocationTextBox.Text = dialog.FileName + "\\";
             }
             
         }

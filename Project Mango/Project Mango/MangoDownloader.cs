@@ -118,14 +118,14 @@ namespace Project_Mango
             /*Download the entire manga.*/
 
             //Update the log
-            Log += "Starting...";
+            Log = "Starting...";
 
             //Initalize the Chapter
-            Log += "Initialize Mango Chapter...\n";
+            Log = "Initialize Mango Chapter...\n";
             _source = await MangoChapter.Factory.CreateNewAsync("Batoto", _sourceUrl);
 
             //Start downloading.
-            Log += "Downloading...\n.\n.\n.\n";
+            Log = "Downloading...\n.\n.\n.\n";
 
             do
             {
@@ -163,7 +163,7 @@ namespace Project_Mango
             DownloadCount++;
 
             //Update the log
-            Log = Log + GetFileName(currentFileUrl) + " downloaded\n";
+            Log = GetFileName(currentFileUrl) + " downloaded\n";
 
             //Update the Completed Progres
             CompletedPercentage = CalculateCompletedPercentage();
