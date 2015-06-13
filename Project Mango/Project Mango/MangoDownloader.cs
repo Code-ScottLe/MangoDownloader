@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,8 @@ using System.Net.Http;
 
 namespace Project_Mango
 {
-    public class MangoDownloader
+
+    public class MangoDownloader : INotifyPropertyChanged
     {
         #region Fields
         /*Fields*/
@@ -57,16 +59,30 @@ namespace Project_Mango
         public int CompletedPercentage
         {
             get { return _completedPercentage; }
-            protected set { _completedPercentage = value; }
+            protected set
+            {
+                _completedPercentage = value; 
+                NotifyPropertyChanged("CompletedPercentage");
+            }
         }
 
         public string Log
         {
             get { return _log; }
-            protected set { _log = value; }
+            protected set
+            {
+                _log = value; 
+                NotifyPropertyChanged("Log");
+            }
         }
 
         #endregion
+
+        #region Events
+        /*Events*/
+        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
+
 
         #region Constructors
 
@@ -102,14 +118,14 @@ namespace Project_Mango
             /*Download the entire manga.*/
 
             //Update the log
-            _log += "Starting...";
+            Log += "Starting...";
 
             //Initalize the Chapter
-            _log += "Initialize Mango Chapter...\n";
+            Log += "Initialize Mango Chapter...\n";
             _source = await MangoChapter.Factory.CreateNewAsync("Batoto", _sourceUrl);
 
             //Start downloading.
-            _log += "Downloading...\n.\n.\n.\n";
+            Log += "Downloading...\n.\n.\n.\n";
 
             do
             {
@@ -128,7 +144,7 @@ namespace Project_Mango
             string currentFileUrl = await _source.GetImageUrlAsync();
 
             //Get the local path of the file
-            string save_to = _saveLocation + GetFileName(currentFileUrl);
+            string save_to = SaveLocation + GetFileName(currentFileUrl);
 
             //Create a stream to the website.
             Stream downloadStream = await _downloadClient.GetStreamAsync(currentFileUrl);
@@ -144,19 +160,19 @@ namespace Project_Mango
             saveStream.Close();
 
             //increment the download counter
-            _downloadCount++;
+            DownloadCount++;
 
             //Update the log
-            _log = _log + GetFileName(currentFileUrl) + " downloaded\n";
+            Log = Log + GetFileName(currentFileUrl) + " downloaded\n";
 
             //Update the Completed Progres
-            _completedPercentage = CalculateCompletedPercentage();
+            CompletedPercentage = CalculateCompletedPercentage();
 
         }
 
         protected int CalculateCompletedPercentage()
         {
-            float percentaged = (float)_downloadCount / (float)_source.PagesCount;
+            float percentaged = (float)DownloadCount / (float)_source.PagesCount;
 
             int percentage = (int)(percentaged * 100);
 
@@ -168,15 +184,24 @@ namespace Project_Mango
             //Parse the URl and give back the original file name.
             //Strat: Scan from the bottom up for the last /.
             int last_slash_index = src_url.LastIndexOf('/');
-            int last_question_mark = src_url.LastIndexOf('?');
 
             //create a substr without that last slash
-            string filename = src_url.Substring(last_slash_index + 1, last_question_mark - last_slash_index - 1);
+            string filename = src_url.Substring(last_slash_index + 1);
 
             //return a copy of that.
             return filename;
         }
 
+        protected void NotifyPropertyChanged(string propertyName)
+        {
+            if (!string.IsNullOrEmpty(propertyName))
+            {
+                PropertyChanged(this,new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
         #endregion
+
+        
     }
 }

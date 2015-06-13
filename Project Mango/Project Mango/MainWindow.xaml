@@ -76,7 +76,8 @@
                 HorizontalAlignment="Stretch" 
                 Margin="10,90,0,0" 
                 VerticalAlignment="Top" 
-                Height="22"/>
+                Height="22"
+                Click="SaveLocationChooseButton_OnClick"/>
         <RichTextBox x:Name="DetailedProgressTextBox" 
                      HorizontalAlignment="Left" 
                      Margin="0,0,0,0" 
@@ -109,7 +110,8 @@
                 Grid.Row="2" 
                 VerticalAlignment="Center" 
                 Width="100"
-                Height="30"/>
+                Height="30"
+                Click="DownloadButton_OnClick"/>
 
 
     </Grid>
