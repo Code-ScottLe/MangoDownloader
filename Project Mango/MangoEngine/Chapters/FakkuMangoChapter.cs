@@ -25,6 +25,21 @@ namespace MangoEngine.Chapters
 
         #region Constructors
         /*Constructors*/
+
+        protected FakkuMangoChapter() : base()
+        {
+            /*Default constructor*/
+            _imgSource = string.Empty;
+            _currentPageIndex = 0;
+        }
+
+        public FakkuMangoChapter(string url) : base(url)
+        {
+            /*Overloaded Constructor, accept a string of Fakku URL*/
+            _imgSource = string.Empty;
+            _currentPageIndex = 0;
+        }
+
         #endregion
 
         #region Methods
@@ -126,20 +141,19 @@ namespace MangoEngine.Chapters
         public override async Task<bool> NextPageAsync()
         {
             /*Modify the links to jump to next page*/
-            return await Task.Run<bool>(() =>
-            {
-                _currentPageIndex ++;
 
-                if (_currentPageIndex > PagesCount)
-                {
-                    return false;
-                }
+             _currentPageIndex ++;   
 
-                string baseString = CurrentUrl.Substring(0, CurrentUrl.LastIndexOf('=') + 1);
-                CurrentUrl = baseString += _currentPageIndex.ToString();
+             if (_currentPageIndex > PagesCount)   
+             {   
+                 return false;   
+             }   
 
-                return true;
-            });
+             string baseString = CurrentUrl.Substring(0, CurrentUrl.LastIndexOf('=') + 1);   
+             CurrentUrl = baseString += _currentPageIndex.ToString();   
+
+             return true;   
+
         }
 
         public override string GetImageUrl()

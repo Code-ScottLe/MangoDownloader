@@ -110,21 +110,18 @@ namespace MangoEngine.Chapters
         public override async Task<bool> NextPageAsync()
         {
             /*Get to the next page of the current chapter asynchrounously*/
+            
+             //Increment the current page index   
+             _currentPageIndex++;   
 
-            return await Task.Run<bool>(() =>
-            {
-                //Increment the current page index
-                _currentPageIndex++;
+             //Verify that we haven't reached the end of the chapter   
+             if (_currentPageIndex >= PagesCount)   
+             {   
+                 return false;   
+             }   
 
-                //Verify that we haven't reached the end of the chapter
-                if (_currentPageIndex >= PagesCount)
-                {
-                    return false;
-                }
-
-                CurrentUrl = _pagesLinks[_currentPageIndex];
-                return true;
-            });
+             CurrentUrl = _pagesLinks[_currentPageIndex];   
+             return true;   
 
         }
 
