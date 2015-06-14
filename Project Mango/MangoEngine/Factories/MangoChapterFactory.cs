@@ -40,7 +40,15 @@ namespace MangoEngine.Factories
             {
                 case "Batoto":
                     source = new BatotoMangoChapter(sourceUrl);
-                    break;              
+                    break;
+
+                case "MangaHere":
+                    source = new MangaHereMangoChapter(sourceUrl);
+                    break;
+
+                /*case "Fakku":
+                    source = new FakkuMangoSource(source_url);
+                    break;*/
             }
 
             if (source == null)
