@@ -126,7 +126,7 @@ namespace MangoEngine.Chapters
         public override async Task<bool> NextPageAsync()
         {
             /*Modify the links to jump to next page*/
-            return await Task.Factory.StartNew<bool>(() =>
+            return await Task.Run<bool>(() =>
             {
                 _currentPageIndex ++;
 
@@ -151,7 +151,7 @@ namespace MangoEngine.Chapters
         {
             /*Get the imageURL from the page for downloading*/
 
-            return await Task.Factory.StartNew<string>(() =>
+            return await Task.Run<string>(() =>
             {
                 try
                 {
