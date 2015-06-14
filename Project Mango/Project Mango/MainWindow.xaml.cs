@@ -33,6 +33,7 @@ namespace Project_Mango
             downloader.PropertyChanged += downloader_PropertyChanged;
 
             SourceComboBox.Items.Add("Batoto");
+            SourceComboBox.Items.Add("MangaHere");
         }
 
         void downloader_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -76,6 +77,7 @@ namespace Project_Mango
             /*Kick off the download*/
             downloader.SourceUrl = UrlTextBox.Text;
             downloader.SaveLocation = SaveLocationTextBox.Text;
+            downloader.SourceName = SourceComboBox.SelectedItem.ToString();
 
             //Start download
             await downloader.StartAsync();

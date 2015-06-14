@@ -139,34 +139,40 @@ namespace Project_Mango
         protected async Task DownloadCurrentPageAsync()
         {
             /*Download the current file Asynchronously*/
+            try
+            {
+                //Get the img url
+                string currentFileUrl = await _source.GetImageUrlAsync();
 
-            //Get the img url
-            string currentFileUrl = await _source.GetImageUrlAsync();
+                //Get the local path of the file
+                string save_to = SaveLocation + GetFileName(currentFileUrl);
 
-            //Get the local path of the file
-            string save_to = SaveLocation + GetFileName(currentFileUrl);
+                //Create a stream to the website.
+                Stream downloadStream = await _downloadClient.GetStreamAsync(currentFileUrl);
 
-            //Create a stream to the website.
-            Stream downloadStream = await _downloadClient.GetStreamAsync(currentFileUrl);
+                //Create a FileStream to the local file.
+                Stream saveStream = new FileStream(save_to, FileMode.OpenOrCreate);
 
-            //Create a FileStream to the local file.
-            Stream saveStream = new FileStream(save_to, FileMode.OpenOrCreate);
+                //Save the file
+                await downloadStream.CopyToAsync(saveStream);
 
-            //Save the file
-            await downloadStream.CopyToAsync(saveStream);
+                //Flush and close the stream
+                saveStream.Flush();
+                saveStream.Close();
 
-            //Flush and close the stream
-            saveStream.Flush();
-            saveStream.Close();
+                //increment the download counter
+                DownloadCount++;
 
-            //increment the download counter
-            DownloadCount++;
+                //Update the log
+                Log = GetFileName(currentFileUrl) + " downloaded\n";
 
-            //Update the log
-            Log = GetFileName(currentFileUrl) + " downloaded\n";
-
-            //Update the Completed Progres
-            CompletedPercentage = CalculateCompletedPercentage();
+                //Update the Completed Progres
+                CompletedPercentage = CalculateCompletedPercentage();
+            }
+            catch (Exception e)
+            {
+                Log = "Something is Wrong! Download Failed! Detailed Message: " + e.ToString();
+            }
 
         }
 
