@@ -34,6 +34,7 @@ namespace Project_Mango
 
             SourceComboBox.Items.Add("Batoto");
             SourceComboBox.Items.Add("MangaHere");
+            SourceComboBox.Items.Add("Fakku");
         }
 
         void downloader_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
