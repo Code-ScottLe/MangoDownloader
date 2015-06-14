@@ -117,6 +117,12 @@ namespace MangoEngine.Chapters
             string contentEncodingStr = contentTypeHeader.Substring(contentTypeHeader.IndexOf("=") + 1);
             Encoding contentEncoding = Encoding.GetEncoding(contentEncodingStr);
 
+            if (contentEncoding == null)
+            {
+                //Default to UTF-8 if hells break loose.
+                contentEncoding = Encoding.UTF8;
+            }
+
             //Return the encoding type
             return contentEncoding;
 
