@@ -46,9 +46,9 @@ namespace MangoEngine.Factories
                     source = new MangaHereMangoChapter(sourceUrl);
                     break;
 
-                /*case "Fakku":
-                    source = new FakkuMangoSource(source_url);
-                    break;*/
+                case "Fakku":
+                    source = new FakkuMangoChapter(sourceUrl);
+                    break;
             }
 
             if (source == null)
