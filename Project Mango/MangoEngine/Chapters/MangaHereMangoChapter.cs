@@ -77,7 +77,7 @@ namespace MangoEngine.Chapters
                 Stream sourceStream = await myClient.GetStreamAsync(CurrentUrl);
 
                 //Check if the stream is Compressed. MangaHere uses GZip
-                if (GetCompression(sourceResponseMessage) == "GZip")
+                if (GetCompression(sourceResponseMessage) == "gzip")
                 {
                     sourceStream = new GZipStream(sourceStream, CompressionMode.Decompress);
                 }
@@ -160,7 +160,7 @@ namespace MangoEngine.Chapters
                 Stream mangaHereStream;
 
                 //MangaHere uses GZip, but switch off randomly
-                if (GetCompression(mangaHereResponseMessage) == "GZip")
+                if (GetCompression(mangaHereResponseMessage) == "gzip")
                 {
                     mangaHereStream = new GZipStream(await myClient.GetStreamAsync(CurrentUrl),CompressionMode.Decompress);
                 }

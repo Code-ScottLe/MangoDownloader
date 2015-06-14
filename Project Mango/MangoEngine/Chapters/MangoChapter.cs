@@ -125,7 +125,15 @@ namespace MangoEngine.Chapters
         public virtual string GetCompression(HttpResponseMessage responseMessage)
         {
             /*GEt the Compression type of the Website fro the HttpResponseMessage*/
-            return responseMessage.Content.Headers.ContentEncoding.ElementAt(0);
+            if (responseMessage.Content.Headers.ContentEncoding.Count != 0)
+            {
+                return responseMessage.Content.Headers.ContentEncoding.ElementAt(0);
+            }
+
+            else
+            {
+                return string.Empty;
+            }
         }
 
         #endregion
