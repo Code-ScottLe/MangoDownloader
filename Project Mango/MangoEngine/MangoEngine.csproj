@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chapters\BatotoMangoChapter.cs" />
+    <Compile Include="Chapters\MangaHereMangoChapter.cs" />
     <Compile Include="Chapters\MangoChapter.cs" />
     <Compile Include="Exceptions\MangoException.cs" />
     <Compile Include="Factories\MangoChapterFactory.cs" />

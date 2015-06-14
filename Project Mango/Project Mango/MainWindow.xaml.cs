@@ -57,7 +57,7 @@ namespace Project_Mango
         {
             /*Get user a Folder Browser to choose.*/
             WPFFolderBrowserDialog dialog = new WPFFolderBrowserDialog();
-
+ 
             //Start from the previous choosen folder if needed to.
             if (!string.IsNullOrEmpty(SaveLocationTextBox.Text))
             {
