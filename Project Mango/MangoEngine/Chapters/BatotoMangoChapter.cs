@@ -16,7 +16,7 @@ namespace MangoEngine.Chapters
 
         #region Fields
         /*Fields*/
-        private List<string> _pagesLink;
+        private List<string> _pagesLinks;
         private int _currentPageIndex;
         #endregion
 
@@ -30,14 +30,14 @@ namespace MangoEngine.Chapters
         protected BatotoMangoChapter() : base()
         {
             /*Default Constructor*/
-            _pagesLink = new List<string>();
+            _pagesLinks = new List<string>();
             _currentPageIndex = 0;
         }
 
         public BatotoMangoChapter(string url) : base(url)
         {
             /*Overloaded Constructors, accept a string of batoto url*/
-            _pagesLink = new List<string>();
+            _pagesLinks = new List<string>();
             _currentPageIndex = 0;
         }
         #endregion
@@ -83,11 +83,11 @@ namespace MangoEngine.Chapters
                 //Add all the links onto the list of pages link.
                 foreach (HtmlNode optionNode in selectNode.SelectNodes("option"))
                 {
-                    _pagesLink.Add(optionNode.Attributes["value"].Value);
+                    _pagesLinks.Add(optionNode.Attributes["value"].Value);
                 }
 
                 //Set the number of pages
-                PagesCount = _pagesLink.Count;
+                PagesCount = _pagesLinks.Count;
             }
 
             catch (Exception e)
@@ -122,7 +122,7 @@ namespace MangoEngine.Chapters
                     return false;
                 }
 
-                CurrentUrl = _pagesLink[_currentPageIndex];
+                CurrentUrl = _pagesLinks[_currentPageIndex];
                 return true;
             });
 
