@@ -122,7 +122,7 @@ namespace Project_Mango
 
             //Initalize the Chapter
             Log = "Initialize Mango Chapter...\n";
-            _source = await MangoChapter.Factory.CreateNewAsync("Batoto", _sourceUrl);
+            _source = await MangoChapter.Factory.CreateNewAsync(SourceName, SourceUrl);
 
             //Start downloading.
             Log = "Downloading...\n.\n.\n.\n";
@@ -185,9 +185,19 @@ namespace Project_Mango
             //Strat: Scan from the bottom up for the last /.
             int last_slash_index = src_url.LastIndexOf('/');
 
-            //create a substr without that last slash
-            string filename = src_url.Substring(last_slash_index + 1);
+            string filename = string.Empty;
+            if (SourceName == "MangaHere")
+            {
+                int last_question_mark = src_url.LastIndexOf('?');
+                filename = src_url.Substring(last_slash_index + 1, last_question_mark - last_slash_index - 1);
 
+            }
+
+            else
+            {
+                filename = src_url.Substring(last_slash_index + 1);
+            }
+           
             //return a copy of that.
             return filename;
         }
