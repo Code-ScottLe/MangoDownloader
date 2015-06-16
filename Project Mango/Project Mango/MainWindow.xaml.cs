@@ -24,6 +24,8 @@ namespace Project_Mango
     {
         /*Custom Fileds*/
         private MangoDownloader downloader;
+
+        public delegate void UpdateUI();
         public MainWindow()
         {
             InitializeComponent();
@@ -47,10 +49,11 @@ namespace Project_Mango
                 DetailedProgressTextBox.ScrollToEnd();
             }
 
-            if (e.PropertyName == "CompletedPercentage")
+            else if (e.PropertyName == "CompletedPercentage")
             {
                 /*Progress changed, update progress bar*/
                 ProgressBar.Value = downloader.CompletedPercentage;
+
             }
         }
 
@@ -82,6 +85,8 @@ namespace Project_Mango
 
             //Start download
             await downloader.StartAsync();
+
+
         }
     }
 }

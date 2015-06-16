@@ -61,7 +61,8 @@ namespace Project_Mango
             get { return _completedPercentage; }
             protected set
             {
-                _completedPercentage = value; 
+                _completedPercentage = value;
+
                 NotifyPropertyChanged("CompletedPercentage");
             }
         }
@@ -168,6 +169,7 @@ namespace Project_Mango
 
                 //Update the Completed Progres
                 CompletedPercentage = CalculateCompletedPercentage();
+
             }
             catch (Exception e)
             {

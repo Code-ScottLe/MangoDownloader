@@ -114,7 +114,7 @@ namespace MangoEngine.Chapters
                 string imgLink = metaNode.Attributes["content"].Value;
 
                 //set the imgLink as the current imgSource
-                _imgSource = imgLink;
+                _imgSource = imgLink.Substring(0, imgLink.LastIndexOf('/') + 1); ;
 
                 //Set the page index
                 _currentPageIndex = 1;
@@ -165,32 +165,29 @@ namespace MangoEngine.Chapters
         {
             /*Get the imageURL from the page for downloading*/
 
-            return await Task.Run<string>(() =>
-            {
-                try
-                {
-                    string pageNum = _currentPageIndex.ToString();
+            try    
+            {    
+                string pageNum = _currentPageIndex.ToString();    
 
-                    if (pageNum.Length == 2)
-                    {
-                        pageNum = "0" + pageNum;
-                    }
+                if (pageNum.Length == 2)    
+                {    
+                    pageNum = "0" + pageNum;    
+                }    
 
-                    else if (pageNum.Length == 1)
-                    {
-                        pageNum = "00" + pageNum;
-                    }
+                else if (pageNum.Length == 1)    
+                {    
+                    pageNum = "00" + pageNum;    
+                }    
 
-                    //Get the image out
-                    string imgLink = _imgSource + pageNum + ".jpg"; //Fakku only>?
+                //Get the image out    
+                string imgLink = _imgSource + pageNum + ".jpg"; //Fakku only>?    
 
-                    return imgLink;
-                }
-                catch (Exception e)
-                {
-                    throw new MangoException("Failed to get to next page", e);
-                }
-            });
+                return imgLink;    
+            }    
+            catch (Exception e)    
+            {    
+                throw new MangoException("Failed to get to next page", e);    
+            }    
         }
         private void url_handler()
         {
