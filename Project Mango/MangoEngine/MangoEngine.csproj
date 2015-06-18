@@ -47,6 +47,7 @@
     <Compile Include="Chapters\FakkuMangoChapter.cs" />
     <Compile Include="Chapters\MangaHereMangoChapter.cs" />
     <Compile Include="Chapters\MangoChapter.cs" />
+    <Compile Include="Chapters\PururinMangoChapter.cs" />
     <Compile Include="Exceptions\MangoException.cs" />
     <Compile Include="Factories\MangoChapterFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
