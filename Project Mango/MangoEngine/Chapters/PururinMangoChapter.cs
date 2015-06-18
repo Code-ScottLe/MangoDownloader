@@ -14,6 +14,9 @@ namespace MangoEngine.Chapters
     {
         #region Fields
         /*Fields*/
+        private string _nextPageUrl;
+        private string _pururinPrefix;
+        private int _currentPage;
         #endregion
 
         #region Properties
@@ -22,6 +25,21 @@ namespace MangoEngine.Chapters
 
         #region Constructors
         /*Constructors*/
+        protected PururinMangoChapter() : base()
+        {
+            _nextPageUrl = string.Empty;
+            _pururinPrefix = "http://pururin.com";
+            _currentPage = 1;
+        }
+
+        protected PururinMangoChapter(string url) : base(url)
+        {
+            _nextPageUrl = string.Empty;
+            _pururinPrefix = "http://pururin.com";
+            _currentPage = 1;
+        }
+
+
         #endregion
 
         #region Methods
@@ -42,6 +60,7 @@ namespace MangoEngine.Chapters
             myClient.Timeout = new TimeSpan(0, 0, 30);
 
             //url handler here.
+            await urlHandlerAsync();
             try
             {
                 //Get the response from the website.
@@ -76,8 +95,8 @@ namespace MangoEngine.Chapters
 
                     }
 
-                    //set the number of pages
-                    PagesCount = numPages;
+                    //set the number of pages (plus one due to the index are 0-based)
+                    PagesCount = numPages + 1;
 
                 });
 
@@ -100,9 +119,63 @@ namespace MangoEngine.Chapters
             return GetImageUrlAsync().Result;
         }
 
-        public override Task<string> GetImageUrlAsync()
+        public override async Task<string> GetImageUrlAsync()
         {
-            throw new NotImplementedException();
+            /*Parse the website and get the img link asynchronously*/
+
+            //create the client to download stuffs from the website
+            HttpClient myClient = new HttpClient();
+
+            //Set the timeout of the client to 30 secs
+            myClient.Timeout = new TimeSpan(0, 0, 30);
+
+            try
+            {
+                //Get the Stream to the website.
+                Stream pururinStream = await myClient.GetStreamAsync(CurrentUrl);
+
+                string imgUrl = await Task.Run<string>(() =>
+                {
+                    //Load it up as a HTML document
+                    HtmlDocument pururinDocument = new HtmlDocument();
+                    pururinDocument.Load(pururinStream);
+
+                    /*Pururin has the img link embedded inside a img node with class ="b",
+                    We will get the next link while grabbing the IMG url because they are next to each other.
+                    So we don't have to do the GetStream twice.*/
+
+                    HtmlNode imgNode = pururinDocument.DocumentNode.SelectSingleNode("//img[@class\"b\"]");
+                    //Check if the node is valid
+                    if (imgNode == null)
+                    {
+                        throw new MangoException("Can't find the img comic_page link!");
+                    }
+
+                    HtmlNode ImageNextNode = pururinDocument.DocumentNode.SelectSingleNode("//a[@class=\"image-next\"]");
+
+                    //only update if the link is valid/there
+                    if (ImageNextNode != null && !string.IsNullOrEmpty(ImageNextNode.Attributes["href"].Value))
+                    {
+                        _nextPageUrl = ImageNextNode.Attributes["href"].Value;
+                    }
+                    
+                    return imgNode.Attributes["src"].Value;
+                });
+
+                return imgUrl;
+            }
+
+            catch (Exception e)
+            {
+                throw new MangoException("Can't get the IMG link!", e);
+            }
+
+            finally
+            {
+                //All done, dispose the client
+                myClient.Dispose();
+            }
+
         }
 
         public override bool NextPage()
@@ -110,14 +183,52 @@ namespace MangoEngine.Chapters
             return NextPageAsync().Result;
         }
 
-        public override Task<bool> NextPageAsync()
+        public override async Task<bool> NextPageAsync()
         {
-            throw new NotImplementedException();
+            /*Get the next page link if possible*/
+
+            _currentPage++;
+
+            if (_currentPage > PagesCount)
+            {
+                return false;
+            }
+
+            CurrentUrl = _nextPageUrl;
+            return true;
         }
 
-        private void url_handler()
+        private async Task urlHandlerAsync()
         {
-            //Handle the case where the user might choose something elser rather than the chapter page.           
+            //Handle the case where the user might choose the overview pages.
+
+            //check if the current url has the gallery keyword inside.
+            if (CurrentUrl.Contains("gallery"))
+            {
+                //Get the Stream to the website.
+                HttpClient myClient = new HttpClient();
+                Stream pururinStream = await myClient.GetStreamAsync(CurrentUrl);
+
+                //Async-Wrapper for the parsing portion
+                await Task.Run(() =>
+                {
+                    //Load it up as HTML
+                    HtmlDocument pururinDocument = new HtmlDocument();
+                    pururinDocument.Load(pururinStream, Encoding.UTF8);
+
+                    //Get the btn link-next node 
+                    HtmlNode readOnlineNode = pururinDocument.DocumentNode.SelectSingleNode("//a[@class=\"btn link-next\"]");
+
+                    //Get the value from href attribute
+                    string partialLink = readOnlineNode.Attributes["href"].Value;
+
+                    //set it to the CurrentUrl
+                    CurrentUrl = _pururinPrefix + partialLink;
+                });
+
+
+            }
+
         }
 
         #endregion
