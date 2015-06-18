@@ -72,22 +72,25 @@ namespace MangoEngine.Chapters
                 //Get the stream to the website.
                 Stream batotoStream = await myClient.GetStreamAsync(CurrentUrl);
 
-                //Load up the Stream as HTML file.
-                HtmlDocument batotoHtmlDocument = new HtmlDocument();
-                batotoHtmlDocument.Load(batotoStream, EncodingType);
+                await Task.Run(() =>
+                {//Load up the Stream as HTML file.
+                    HtmlDocument batotoHtmlDocument = new HtmlDocument();
+                    batotoHtmlDocument.Load(batotoStream, EncodingType);
 
-                /*Batoto has the list of all the pages with links in a drop down*/
-                //Get the select node which contains all the pages with links
-                HtmlNode selectNode = batotoHtmlDocument.DocumentNode.SelectSingleNode("//select[@id = \"page_select\"]");
+                    /*Batoto has the list of all the pages with links in a drop down*/
+                    //Get the select node which contains all the pages with links
+                    HtmlNode selectNode = batotoHtmlDocument.DocumentNode.SelectSingleNode("//select[@id = \"page_select\"]");
 
-                //Add all the links onto the list of pages link.
-                foreach (HtmlNode optionNode in selectNode.SelectNodes("option"))
-                {
-                    _pagesLinks.Add(optionNode.Attributes["value"].Value);
-                }
+                    //Add all the links onto the list of pages link.
+                    foreach (HtmlNode optionNode in selectNode.SelectNodes("option"))
+                    {
+                        _pagesLinks.Add(optionNode.Attributes["value"].Value);
+                    }
 
-                //Set the number of pages
-                PagesCount = _pagesLinks.Count;
+                    //Set the number of pages
+                    PagesCount = _pagesLinks.Count;
+                });
+             
             }
 
             catch (Exception e)
@@ -143,22 +146,27 @@ namespace MangoEngine.Chapters
                 //Get the Stream to the website.
                 Stream batotoStream = await myClient.GetStreamAsync(CurrentUrl);
 
-                //Load up the Stream as the Html
-                HtmlDocument batotoHtmlDocument = new HtmlDocument();
-                batotoHtmlDocument.Load(batotoStream,EncodingType);
-
-                /* Batoto holds the page's image url inside the img node with the id "comic_page" */
-                //Get the img node.
-                HtmlNode imgNode = batotoHtmlDocument.DocumentNode.SelectSingleNode("//img[@id = \"comic_page\"]");
-
-                //Check if the node is valid
-                if (imgNode == null)
+                //get the img url.
+                string imgUrl = await Task.Run<string>(() =>
                 {
-                    throw new MangoException("Can't find the img comic_page link!");
-                }
+                    //Load up the Stream as the Html
+                    HtmlDocument batotoHtmlDocument = new HtmlDocument();
+                    batotoHtmlDocument.Load(batotoStream, EncodingType);
 
-                //Node was found, get the link out.
-                string imgUrl = imgNode.Attributes["src"].Value;
+                    /* Batoto holds the page's image url inside the img node with the id "comic_page" */
+                    //Get the img node.
+                    HtmlNode imgNode = batotoHtmlDocument.DocumentNode.SelectSingleNode("//img[@id = \"comic_page\"]");
+
+                    //Check if the node is valid
+                    if (imgNode == null)
+                    {
+                        throw new MangoException("Can't find the img comic_page link!");
+                    }
+
+                    //Node was found, get the link out.
+                    return imgNode.Attributes["src"].Value;
+                });
+               
 
                 //return the url
                 return imgUrl;
