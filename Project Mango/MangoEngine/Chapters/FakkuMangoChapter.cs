@@ -73,52 +73,54 @@ namespace MangoEngine.Chapters
                 //Get a Stream to Fakku
                 Stream fakkuStream = await myClient.GetStreamAsync(CurrentUrl);
 
-                /*Load the Stream up as HTML*/
-                HtmlDocument fakkuHtmlDocument = new HtmlDocument();
-                fakkuHtmlDocument.Load(fakkuStream,EncodingType);
+                //Doing parsing on a background thread.
+                await Task.Run(() =>
+                {/*Load the Stream up as HTML*/
+                    HtmlDocument fakkuHtmlDocument = new HtmlDocument();
+                    fakkuHtmlDocument.Load(fakkuStream, EncodingType);
 
-                /*Fakku contains the number of pages in a columns*/
-                //Attempt to find the <div> node which contain 9 columns of info
-                HtmlNode div9ColumnscontentNode =
-                    fakkuHtmlDocument.DocumentNode.SelectSingleNode("//div[@class=\"nine columns content-right \"]");
+                    /*Fakku contains the number of pages in a columns*/
+                    //Attempt to find the <div> node which contain 9 columns of info
+                    HtmlNode div9ColumnscontentNode =
+                        fakkuHtmlDocument.DocumentNode.SelectSingleNode("//div[@class=\"nine columns content-right \"]");
 
-                //Attemp to find  the div node that hold the page numbers
-                HtmlNode divPagesInfoNode =
-                    div9ColumnscontentNode.SelectSingleNode("//div[@class=\"left\" and text()= \"Pages\"]").ParentNode;
+                    //Attemp to find  the div node that hold the page numbers
+                    HtmlNode divPagesInfoNode =
+                        div9ColumnscontentNode.SelectSingleNode("//div[@class=\"left\" and text()= \"Pages\"]").ParentNode;
 
-                //Get the node that contain the numbers of pages
-                HtmlNode divPagesNode = divPagesInfoNode.SelectSingleNode("div[@class=\"right\"]");
+                    //Get the node that contain the numbers of pages
+                    HtmlNode divPagesNode = divPagesInfoNode.SelectSingleNode("div[@class=\"right\"]");
 
-                /*The div node will be in this format: <div class = "right"> 22 pages </div>
-                 * We will have to clean the string before converting it to number*/
+                    /*The div node will be in this format: <div class = "right"> 22 pages </div>
+                     * We will have to clean the string before converting it to number*/
 
-                //WARNING: This will break if the innter text is mistyped
-                string pageNumberString = divPagesNode.InnerText.Substring(0, divPagesNode.InnerText.IndexOf(" "));
-                int numPages;
+                    //WARNING: This will break if the innter text is mistyped
+                    string pageNumberString = divPagesNode.InnerText.Substring(0, divPagesNode.InnerText.IndexOf(" "));
+                    int numPages;
 
-                if (!Int32.TryParse(pageNumberString, out numPages))
-                {
-                    throw new MangoException("Can't get the number of pages");
-                }
+                    if (!Int32.TryParse(pageNumberString, out numPages))
+                    {
+                        throw new MangoException("Can't get the number of pages");
+                    }
 
-                //Set the number of pages
-                PagesCount = numPages;
+                    //Set the number of pages
+                    PagesCount = numPages;
 
-                //Done getting the number of pages, set the URl to the reading pages.
-                CurrentUrl += "/read#page=1";
+                    //Done getting the number of pages, set the URl to the reading pages.
+                    CurrentUrl += "/read#page=1";
 
-                //Search for the Meta Node that contain the property = "og:image"
-                HtmlNode metaNode = fakkuHtmlDocument.DocumentNode.SelectSingleNode("//meta[@property = \"og:image\"]");
+                    //Search for the Meta Node that contain the property = "og:image"
+                    HtmlNode metaNode = fakkuHtmlDocument.DocumentNode.SelectSingleNode("//meta[@property = \"og:image\"]");
 
-                //Get the image value out
-                string imgLink = metaNode.Attributes["content"].Value;
+                    //Get the image value out
+                    string imgLink = metaNode.Attributes["content"].Value;
 
-                //set the imgLink as the current imgSource
-                _imgSource = imgLink.Substring(0, imgLink.LastIndexOf('/') + 1); ;
+                    //set the imgLink as the current imgSource
+                    _imgSource = imgLink.Substring(0, imgLink.LastIndexOf('/') + 1); ;
 
-                //Set the page index
-                _currentPageIndex = 1;
-
+                    //Set the page index
+                    _currentPageIndex = 1;
+                });            
 
             }
             catch (Exception e)
