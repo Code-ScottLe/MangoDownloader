@@ -32,7 +32,7 @@ namespace MangoEngine.Chapters
             _currentPage = 1;
         }
 
-        protected PururinMangoChapter(string url) : base(url)
+        public PururinMangoChapter(string url) : base(url)
         {
             _nextPageUrl = string.Empty;
             _pururinPrefix = "http://pururin.com";

@@ -49,6 +49,9 @@ namespace MangoEngine.Factories
                 case "Fakku":
                     source = new FakkuMangoChapter(sourceUrl);
                     break;
+                case "Pururin":
+                    source = new PururinMangoChapter(sourceUrl);
+                    break;
             }
 
             if (source == null)
