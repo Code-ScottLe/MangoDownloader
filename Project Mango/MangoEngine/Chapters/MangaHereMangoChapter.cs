@@ -65,59 +65,67 @@ namespace MangoEngine.Chapters
             //set the Timeout of the client to 30 secs
             myClient.Timeout = new TimeSpan(0,0,30);
 
+            //Try to get the Response from the link   
+            HttpResponseMessage sourceResponseMessage = null;
             try
             {
-                //Try to get the Response from the link
-                HttpResponseMessage sourceResponseMessage = await myClient.GetAsync(CurrentUrl);
+                sourceResponseMessage = await myClient.GetAsync(CurrentUrl);
+            }
+               
+            catch(Exception e)
+            {
+                throw new MangoException("Init failed! Can't get the response from the Website", e);
+            }
 
-                /*Get the Data Encoding of the content*/
-                EncodingType = GetEncoding(sourceResponseMessage);
+            /*Get the Data Encoding of the content*/    
+            EncodingType = GetEncoding(sourceResponseMessage);
 
-                //Get the Stream to the website
-                Stream sourceStream = await myClient.GetStreamAsync(CurrentUrl);
+            //Get the Stream to the website    
+            Stream sourceStream = null;
+            try
+            {
+                sourceStream = await myClient.GetStreamAsync(CurrentUrl);
+            }
+                 
+            catch(Exception e)
+            {
+                throw new MangoException("Init failed! Can't get the Stream to the Website!", e);
+            }
+            //Async-wrapper for parsing portion    
+            await Task.Run(() =>    
+            {    
+                //Check if the stream is Compressed. MangaHere uses GZip    
+                if (GetCompression(sourceResponseMessage) == "gzip")    
+                {    
+                    sourceStream = new GZipStream(sourceStream, CompressionMode.Decompress);    
+                }    
 
-                //Async-wrapper for parsing portion
-                await Task.Run(() =>
+                /*Load the stream up as HTML*/    
+                HtmlDocument myDocument = new HtmlDocument();    
+                myDocument.Load(sourceStream, EncodingType);    
+
+                /*MangaHere has the list of all the pages with links in a drop down*/    
+                //Get the select node which contains all the pages with links    
+                HtmlNode selectNode = myDocument.DocumentNode.SelectSingleNode("//select[@class = \"wid60\"]");    
+
+                if(selectNode == null)
                 {
-                    //Check if the stream is Compressed. MangaHere uses GZip
-                    if (GetCompression(sourceResponseMessage) == "gzip")
-                    {
-                        sourceStream = new GZipStream(sourceStream, CompressionMode.Decompress);
-                    }
+                    throw new MangoException("Init failed! Can't find selectNode!");
+                }
 
-                    /*Load the stream up as HTML*/
-                    HtmlDocument myDocument = new HtmlDocument();
-                    myDocument.Load(sourceStream, EncodingType);
+                //Add all the links onto the list of pages link.    
+                foreach (HtmlNode optionNode in selectNode.SelectNodes("option"))    
+                {    
+                    _pagesLinks.Add(optionNode.Attributes["value"].Value);    
+                }    
 
-                    /*MangaHere has the list of all the pages with links in a drop down*/
-                    //Get the select node which contains all the pages with links
-                    HtmlNode selectNode = myDocument.DocumentNode.SelectSingleNode("//select[@class = \"wid60\"]");
+                //Set the number of pages    
+                PagesCount = _pagesLinks.Count;    
+            });    
 
-                    //Add all the links onto the list of pages link.
-                    foreach (HtmlNode optionNode in selectNode.SelectNodes("option"))
-                    {
-                        _pagesLinks.Add(optionNode.Attributes["value"].Value);
-                    }
-
-                    //Set the number of pages
-                    PagesCount = _pagesLinks.Count;
-                });
-
-
-                
-            }
-            catch (Exception e)
-            {
-                //Something is wrong, re-throw the exception
-                throw new MangoException("Initialize Failed!", e);
-            }
-
-            finally
-            {
-                //Done with everything, dispose the client to save memory.
-                myClient.Dispose();
-            }
-
+            //Dispose the client
+            myClient.Dispose();
+               
         }
 
         public override bool NextPage()
@@ -155,61 +163,50 @@ namespace MangoEngine.Chapters
             //Intialize the client.
             HttpClient myClient = new HttpClient();
 
-            try
-            {
-                //Get the Response to the website.
-                HttpResponseMessage mangaHereResponseMessage = await myClient.GetAsync(CurrentUrl);
+            //Get the Response to the website.    
+            HttpResponseMessage mangaHereResponseMessage = await myClient.GetAsync(CurrentUrl);    
 
-                /*Check if the Stream is compressed or not*/
-                Stream mangaHereStream;
+            /*Check if the Stream is compressed or not*/    
+            Stream mangaHereStream;    
 
-                //MangaHere uses GZip, but switch off randomly
-                if (GetCompression(mangaHereResponseMessage) == "gzip")
-                {
-                    mangaHereStream = new GZipStream(await myClient.GetStreamAsync(CurrentUrl),CompressionMode.Decompress);
-                }
+            //MangaHere uses GZip, but switch off randomly    
+            if (GetCompression(mangaHereResponseMessage) == "gzip")    
+            {    
+                mangaHereStream = new GZipStream(await myClient.GetStreamAsync(CurrentUrl),CompressionMode.Decompress);    
+            }    
 
-                else
-                {
-                    mangaHereStream = await myClient.GetStreamAsync(CurrentUrl);
-                }
+            else    
+            {    
+                mangaHereStream = await myClient.GetStreamAsync(CurrentUrl);    
+            }    
 
-                //Async-Wrapper for parsing
-                string imgUrl = await Task.Run<string>(() =>
-                {
-                    /*Load up the Stream as HTML*/
-                    HtmlDocument mangaHereHtmlDocument = new HtmlDocument();
-                    mangaHereHtmlDocument.Load(mangaHereStream, EncodingType);
+            //Async-Wrapper for parsing    
+            string imgUrl = await Task.Run<string>(() =>    
+            {    
+                /*Load up the Stream as HTML*/    
+                HtmlDocument mangaHereHtmlDocument = new HtmlDocument();    
+                mangaHereHtmlDocument.Load(mangaHereStream, EncodingType);    
 
-                    /* MangaHere holds the page's image url inside the img node with the id "image" */
-                    //Get the img node.
-                    HtmlNode imgNode = mangaHereHtmlDocument.DocumentNode.SelectSingleNode("//img[@id = \"image\"]");
+                /* MangaHere holds the page's image url inside the img node with the id "image" */    
+                //Get the img node.    
+                HtmlNode imgNode = mangaHereHtmlDocument.DocumentNode.SelectSingleNode("//img[@id = \"image\"]");    
 
-                    //Check if the node is valid
-                    if (imgNode == null)
-                    {
-                        throw new MangoException("Can't find the img comic_page link!");
-                    }
+                //Check if the node is valid    
+                if (imgNode == null)    
+                {    
+                    throw new MangoException("Can't find the img comic_page link!");    
+                }    
 
-                    //Node was found, get the link out.
-                    return imgNode.Attributes["src"].Value;
-                });
+                //Node was found, get the link out.    
+                return imgNode.Attributes["src"].Value;    
+            });
+
+            //Dispose the client
+            myClient.Dispose();
                
-                //return the url
-                return imgUrl;
-
-            }
-
-            catch (Exception e)
-            {
-                throw new MangoException("Get Image URL Failed!", e);
-            }
-
-            finally
-            {
-                //Done with everything, clean up the client
-                myClient.Dispose();
-            }
+            //return the url
+            return imgUrl;
+         
         }
 
         #endregion

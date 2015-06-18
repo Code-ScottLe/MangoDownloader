@@ -69,9 +69,9 @@ namespace MangoEngine.Chapters
                 responseMessage = await myClient.GetAsync(CurrentUrl);
             }
 
-            catch
+            catch (Exception e)
             {
-                throw new MangoException("Init failed! Can't Get Response from Website");
+                throw new MangoException("Init failed! Can't Get Response from Website", e);
             }
                 
 
@@ -85,9 +85,9 @@ namespace MangoEngine.Chapters
                 pururinStream = await myClient.GetStreamAsync(CurrentUrl);
             }
 
-            catch
+            catch (Exception e)
             {
-                throw new MangoException("Init failed! Can't get Stream to the Website");
+                throw new MangoException("Init failed! Can't get Stream to the Website",e);
             }
 
             //Async-Wrapper for Parsing process    
@@ -148,9 +148,9 @@ namespace MangoEngine.Chapters
                 pururinStream = await myClient.GetStreamAsync(CurrentUrl);
             }
                  
-            catch
+            catch (Exception e)
             {
-                throw new MangoException("GetImageUrl failed! Can't get Stream to the website!");
+                throw new MangoException("GetImageUrl failed! Can't get Stream to the website!", e);
             }
 
             string PartialimgUrl = await Task.Run<string>(() =>    
@@ -179,7 +179,10 @@ namespace MangoEngine.Chapters
                 }    
                     
                 return imgNode.Attributes["src"].Value;    
-            });    
+            });
+
+            //Dispose the client
+            myClient.Dispose();
 
             return _pururinPrefix + PartialimgUrl;    
 

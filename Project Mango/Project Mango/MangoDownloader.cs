@@ -139,6 +139,7 @@ namespace Project_Mango
 
         protected async Task DownloadCurrentPageAsync()
         {
+            int retryCounter = 0;
             /*Download the current file Asynchronously*/
             try
             {
@@ -173,7 +174,8 @@ namespace Project_Mango
             }
             catch (Exception e)
             {
-                Log = "Something is Wrong! Download Failed! Detailed Message: " + e.ToString();
+                Log = "Something is Wrong! Download Failed! Detailed Message: " + e.ToString() + "\n";
+
             }
 
         }
