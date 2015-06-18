@@ -134,7 +134,7 @@ namespace MangoEngine.Chapters
                 //Get the Stream to the website.
                 Stream pururinStream = await myClient.GetStreamAsync(CurrentUrl);
 
-                string imgUrl = await Task.Run<string>(() =>
+                string PartialimgUrl = await Task.Run<string>(() =>
                 {
                     //Load it up as a HTML document
                     HtmlDocument pururinDocument = new HtmlDocument();
@@ -144,7 +144,7 @@ namespace MangoEngine.Chapters
                     We will get the next link while grabbing the IMG url because they are next to each other.
                     So we don't have to do the GetStream twice.*/
 
-                    HtmlNode imgNode = pururinDocument.DocumentNode.SelectSingleNode("//img[@class\"b\"]");
+                    HtmlNode imgNode = pururinDocument.DocumentNode.SelectSingleNode("//img[@class=\"b\"]");
                     //Check if the node is valid
                     if (imgNode == null)
                     {
@@ -156,13 +156,13 @@ namespace MangoEngine.Chapters
                     //only update if the link is valid/there
                     if (ImageNextNode != null && !string.IsNullOrEmpty(ImageNextNode.Attributes["href"].Value))
                     {
-                        _nextPageUrl = ImageNextNode.Attributes["href"].Value;
+                        _nextPageUrl = _pururinPrefix + ImageNextNode.Attributes["href"].Value;
                     }
                     
                     return imgNode.Attributes["src"].Value;
                 });
 
-                return imgUrl;
+                return _pururinPrefix + PartialimgUrl;
             }
 
             catch (Exception e)
