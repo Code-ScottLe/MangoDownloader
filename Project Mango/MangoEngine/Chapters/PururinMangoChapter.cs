@@ -97,7 +97,7 @@ namespace MangoEngine.Chapters
         }
         public override string GetImageUrl()
         {
-            throw new NotImplementedException();
+            return GetImageUrlAsync().Result;
         }
 
         public override Task<string> GetImageUrlAsync()
@@ -107,7 +107,7 @@ namespace MangoEngine.Chapters
 
         public override bool NextPage()
         {
-            throw new NotImplementedException();
+            return NextPageAsync().Result;
         }
 
         public override Task<bool> NextPageAsync()
