@@ -76,28 +76,35 @@ namespace MangoEngine.Chapters
                 //Get the Stream to the website
                 Stream sourceStream = await myClient.GetStreamAsync(CurrentUrl);
 
-                //Check if the stream is Compressed. MangaHere uses GZip
-                if (GetCompression(sourceResponseMessage) == "gzip")
+                //Async-wrapper for parsing portion
+                await Task.Run(() =>
                 {
-                    sourceStream = new GZipStream(sourceStream, CompressionMode.Decompress);
-                }
+                    //Check if the stream is Compressed. MangaHere uses GZip
+                    if (GetCompression(sourceResponseMessage) == "gzip")
+                    {
+                        sourceStream = new GZipStream(sourceStream, CompressionMode.Decompress);
+                    }
 
-                /*Load the stream up as HTML*/
-                HtmlDocument myDocument = new HtmlDocument();
-                myDocument.Load(sourceStream,EncodingType);
+                    /*Load the stream up as HTML*/
+                    HtmlDocument myDocument = new HtmlDocument();
+                    myDocument.Load(sourceStream, EncodingType);
 
-                /*MangaHere has the list of all the pages with links in a drop down*/
-                //Get the select node which contains all the pages with links
-                HtmlNode selectNode = myDocument.DocumentNode.SelectSingleNode("//select[@class = \"wid60\"]");
+                    /*MangaHere has the list of all the pages with links in a drop down*/
+                    //Get the select node which contains all the pages with links
+                    HtmlNode selectNode = myDocument.DocumentNode.SelectSingleNode("//select[@class = \"wid60\"]");
 
-                //Add all the links onto the list of pages link.
-                foreach (HtmlNode optionNode in selectNode.SelectNodes("option"))
-                {
-                    _pagesLinks.Add(optionNode.Attributes["value"].Value);
-                }
+                    //Add all the links onto the list of pages link.
+                    foreach (HtmlNode optionNode in selectNode.SelectNodes("option"))
+                    {
+                        _pagesLinks.Add(optionNode.Attributes["value"].Value);
+                    }
 
-                //Set the number of pages
-                PagesCount = _pagesLinks.Count;
+                    //Set the number of pages
+                    PagesCount = _pagesLinks.Count;
+                });
+
+
+                
             }
             catch (Exception e)
             {
@@ -167,23 +174,27 @@ namespace MangoEngine.Chapters
                     mangaHereStream = await myClient.GetStreamAsync(CurrentUrl);
                 }
 
-                /*Load up the Stream as HTML*/
-                HtmlDocument mangaHereHtmlDocument = new HtmlDocument();
-                mangaHereHtmlDocument.Load(mangaHereStream,EncodingType);
-
-                /* MangaHere holds the page's image url inside the img node with the id "image" */
-                //Get the img node.
-                HtmlNode imgNode = mangaHereHtmlDocument.DocumentNode.SelectSingleNode("//img[@id = \"image\"]");
-
-                //Check if the node is valid
-                if (imgNode == null)
+                //Async-Wrapper for parsing
+                string imgUrl = await Task.Run<string>(() =>
                 {
-                    throw new MangoException("Can't find the img comic_page link!");
-                }
+                    /*Load up the Stream as HTML*/
+                    HtmlDocument mangaHereHtmlDocument = new HtmlDocument();
+                    mangaHereHtmlDocument.Load(mangaHereStream, EncodingType);
 
-                //Node was found, get the link out.
-                string imgUrl = imgNode.Attributes["src"].Value;
+                    /* MangaHere holds the page's image url inside the img node with the id "image" */
+                    //Get the img node.
+                    HtmlNode imgNode = mangaHereHtmlDocument.DocumentNode.SelectSingleNode("//img[@id = \"image\"]");
 
+                    //Check if the node is valid
+                    if (imgNode == null)
+                    {
+                        throw new MangoException("Can't find the img comic_page link!");
+                    }
+
+                    //Node was found, get the link out.
+                    return imgNode.Attributes["src"].Value;
+                });
+               
                 //return the url
                 return imgUrl;
 

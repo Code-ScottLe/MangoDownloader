@@ -72,6 +72,7 @@ namespace MangoEngine.Chapters
                 //Get the stream to the website.
                 Stream batotoStream = await myClient.GetStreamAsync(CurrentUrl);
 
+                //Async-Wrapper for parsing
                 await Task.Run(() =>
                 {//Load up the Stream as HTML file.
                     HtmlDocument batotoHtmlDocument = new HtmlDocument();

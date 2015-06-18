@@ -73,7 +73,7 @@ namespace MangoEngine.Chapters
                 //Get a Stream to Fakku
                 Stream fakkuStream = await myClient.GetStreamAsync(CurrentUrl);
 
-                //Doing parsing on a background thread.
+                //Async-Wrapper for parsing
                 await Task.Run(() =>
                 {/*Load the Stream up as HTML*/
                     HtmlDocument fakkuHtmlDocument = new HtmlDocument();
