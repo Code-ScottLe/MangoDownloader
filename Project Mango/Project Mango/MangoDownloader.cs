@@ -72,7 +72,7 @@ namespace Project_Mango
             get { return _log; }
             protected set
             {
-                _log = value; 
+                _log = value;
                 NotifyPropertyChanged("Log");
             }
         }
@@ -133,7 +133,7 @@ namespace Project_Mango
                 //Download the current file.
                 await DownloadCurrentPageAsync();
 
-            } while (await _source.NextPageAsync()== true);
+            } while (await _source.NextPageAsync() == true);
 
         }
 
@@ -153,7 +153,7 @@ namespace Project_Mango
 
                 //Create a FileStream to the local file.
                 Stream saveStream = new FileStream(save_to, FileMode.OpenOrCreate);
-
+                
                 //Save the file
                 await downloadStream.CopyToAsync(saveStream);
 
@@ -205,7 +205,7 @@ namespace Project_Mango
             {
                 filename = src_url.Substring(last_slash_index + 1);
             }
-           
+
             //return a copy of that.
             return filename;
         }
@@ -214,12 +214,12 @@ namespace Project_Mango
         {
             if (!string.IsNullOrEmpty(propertyName))
             {
-                PropertyChanged(this,new PropertyChangedEventArgs(propertyName));
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 
         #endregion
 
-        
+
     }
 }
