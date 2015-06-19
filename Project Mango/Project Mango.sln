@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.22823.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectMango.Windows (WPF - Desktop)", "Project Mango\ProjectMango.Windows (WPF - Desktop).csproj", "{D9131646-529A-48AB-9296-695CFA258AC2}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectMango.Windows (WPF - Desktop)", "ProjectMango.Windows (WPF - Desktop)", "{949C6CEC-FFB9-421D-BE6C-531E9282D177}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangoEngine", "MangoEngine\MangoEngine.csproj", "{0FA3925C-6476-4008-8090-433C490E7976}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangoDownloader", "MangoDownloader\MangoDownloader.csproj", "{0AAAA05F-A701-420C-B90C-AEFBFF430301}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{0FA3925C-6476-4008-8090-433C490E7976}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FA3925C-6476-4008-8090-433C490E7976}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FA3925C-6476-4008-8090-433C490E7976}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AAAA05F-A701-420C-B90C-AEFBFF430301}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AAAA05F-A701-420C-B90C-AEFBFF430301}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AAAA05F-A701-420C-B90C-AEFBFF430301}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AAAA05F-A701-420C-B90C-AEFBFF430301}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,5 +38,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D9131646-529A-48AB-9296-695CFA258AC2} = {949C6CEC-FFB9-421D-BE6C-531E9282D177}
 		{0FA3925C-6476-4008-8090-433C490E7976} = {BBAF424F-CA30-42E1-AC5D-1CC5EEB55D57}
+		{0AAAA05F-A701-420C-B90C-AEFBFF430301} = {949C6CEC-FFB9-421D-BE6C-531E9282D177}
 	EndGlobalSection
 EndGlobal
