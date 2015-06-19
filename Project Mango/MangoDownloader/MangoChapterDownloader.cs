@@ -96,7 +96,7 @@ namespace MangoDownloader
 
             try
             {
-                myChapter = await GetMangoChapter(URL, SourceName, new TimeSpan(0, 0, 1));
+                myChapter = await MangoChapter.Factory.CreateNewAsync(SourceName,URL);
             }
 
             catch (Exception e)
@@ -134,12 +134,12 @@ namespace MangoDownloader
             Stream downloadStream = null;
             try
             {
-                downloadStream = await myClient.GetStreamAsync(imgLink);
+                downloadStream = await GetDownloadStream(myClient, imgLink, new TimeSpan(0, 0, 1));
             }
              
             catch (Exception e)
             {
-                
+                return;
             }
 
             //Create a FileStream to the local file.
@@ -153,7 +153,7 @@ namespace MangoDownloader
             saveStream.Close();
         }
 
-        protected async Task<MangoChapter> GetMangoChapter(string url, string sourceName, TimeSpan retryInterval, int retryCount = 3)
+        protected async Task<Stream> GetDownloadStream(HttpClient myClient, string url, TimeSpan retryInterval, int retryCount = 3)
         {
             /*Get the instance of the MangoChapter with [default] 3 trials*/
 
@@ -163,9 +163,9 @@ namespace MangoDownloader
             {
                 try
                 {
-                    var chapter = await MangoChapter.Factory.CreateNewAsync(sourceName, url);
+                    var stream = await myClient.GetStreamAsync(url);
 
-                    return chapter;
+                    return stream;
                 }
                 catch (Exception ex)
                 {
