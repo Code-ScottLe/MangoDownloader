@@ -64,6 +64,15 @@ namespace MangoDownloader
 
         #region Constructors
         /*Constructors*/
+        public MangoChapterDownloader()
+        {
+            _url = string.Empty;
+            _saveTo = string.Empty;
+            _sourceName = string.Empty;
+            _completedPercentage = 0.0;
+            _log = string.Empty;
+            myClient = new HttpClient();
+        }
         #endregion
 
         #region Methods
