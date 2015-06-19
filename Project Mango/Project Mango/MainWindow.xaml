@@ -2,8 +2,13 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Project Mango v2.0" Height="600" Width="1020"
+        xmlns:local="clr-namespace:Project_Mango"
+        xmlns:mangodownloader="clr-namespace:MangoDownloader;assembly=MangoDownloader"
         >
     <Grid Background="GhostWhite">
+        <Grid.Resources>
+            <mangodownloader:MangoChapterDownloader x:Key="ChapterDownloader" x:Name="ChapterDownloader"></mangodownloader:MangoChapterDownloader>
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.3*"/>
             <RowDefinition Height="0.6*"/>
