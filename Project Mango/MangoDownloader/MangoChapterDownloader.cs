@@ -30,6 +30,30 @@ namespace MangoDownloader
             set { _url = value; OnPropertyChanged("URL"); }
         }
 
+        public string SaveTo
+        {
+            get { return _saveTo; }
+            set { _saveTo = value; OnPropertyChanged("SaveTo"); }
+        }
+
+        public string SourceName
+        {
+            get { return _sourceName; }
+            set { _sourceName = value; OnPropertyChanged("SourceName"); }
+        }
+
+        public double CompletedPercentage
+        {
+            get { return _completedPercentage; }
+            set { _completedPercentage = value; OnPropertyChanged("CompletedPercentage"); }
+        }
+
+        public string Log
+        {
+            get { return _log; }
+            set { _log = value; OnPropertyChanged("Log"); }
+        }
+
         #endregion
 
         #region Events
