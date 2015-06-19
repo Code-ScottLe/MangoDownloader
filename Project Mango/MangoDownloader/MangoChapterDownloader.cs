@@ -87,7 +87,7 @@ namespace MangoDownloader
         #region Methods
         /*Methods*/
 
-        public async Task Download()
+        public async Task DownloadAsync()
         {
             /*Download the current chapter*/
 
