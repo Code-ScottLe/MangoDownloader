@@ -86,6 +86,13 @@ namespace MangoDownloader
 
         #region Methods
         /*Methods*/
+        private void SupportedSourceList()
+        {
+            _sourceNameList.Add("Batoto");
+            _sourceNameList.Add("MangaHere");
+            _sourceNameList.Add("Fakku");
+            _sourceNameList.Add("Pururin");
+        }
 
         public async Task DownloadAsync()
         {
