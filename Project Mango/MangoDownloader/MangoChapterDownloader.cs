@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.IO;
 using System.ComponentModel;
+using MangoEngine.Chapters;
 
 namespace MangoDownloader
 {
@@ -18,6 +19,7 @@ namespace MangoDownloader
         private string _url;
         private string _saveTo;
         private string _sourceName;
+        private List<string> _sourceNameList;
         private double _completedPercentage;
         private string _log;
         #endregion
@@ -40,6 +42,12 @@ namespace MangoDownloader
         {
             get { return _sourceName; }
             set { _sourceName = value; OnPropertyChanged("SourceName"); }
+        }
+
+        public List<string> SourceNameList
+        {
+            get { return SourceNameList; }
+            set { SourceNameList = value; OnPropertyChanged("SourceNameList"); }
         }
 
         public double CompletedPercentage
@@ -69,6 +77,7 @@ namespace MangoDownloader
             _url = string.Empty;
             _saveTo = string.Empty;
             _sourceName = string.Empty;
+            _sourceNameList = new List<string>();
             _completedPercentage = 0.0;
             _log = string.Empty;
             myClient = new HttpClient();
@@ -77,6 +86,129 @@ namespace MangoDownloader
 
         #region Methods
         /*Methods*/
+
+        public async Task Download()
+        {
+            /*Download the current chapter*/
+
+            //Try to create an instance of the chapter
+            MangoChapter myChapter = null;
+
+            try
+            {
+                myChapter = await GetMangoChapter(URL, SourceName, new TimeSpan(0, 0, 1));
+            }
+
+            catch (Exception e)
+            {
+                //failed!
+                return;
+            }
+
+            //Able to get the initialization to the source kick off the download
+            int DownloadCount = 0;
+            do
+            {
+                await DownloadCurrentPage(myChapter);
+
+                //Increase the download count
+                DownloadCount++;
+
+                //Update the completed Percentage
+                CompletedPercentage = CalculateCompletedPercentage(DownloadCount, myChapter.PagesCount);
+
+            } while (await myChapter.NextPageAsync() == true);
+        }
+
+        protected async Task DownloadCurrentPage(MangoChapter source)
+        {
+            /*Download the current page of the chapter*/
+
+            //get the img link
+            string imgLink = await source.GetImageUrlAsync();
+
+            //get the local path to save
+            string saveLocalPath = SaveTo + GetFileName(imgLink);
+
+            //Create a stream to the website.
+            Stream downloadStream = null;
+            try
+            {
+                downloadStream = await myClient.GetStreamAsync(imgLink);
+            }
+             
+            catch (Exception e)
+            {
+                
+            }
+
+            //Create a FileStream to the local file.
+            Stream saveStream = new FileStream(saveLocalPath, FileMode.OpenOrCreate);
+
+            //Save the file
+            await downloadStream.CopyToAsync(saveStream);
+
+            //Flush and close the stream
+            saveStream.Flush();
+            saveStream.Close();
+        }
+
+        protected async Task<MangoChapter> GetMangoChapter(string url, string sourceName, TimeSpan retryInterval, int retryCount = 3)
+        {
+            /*Get the instance of the MangoChapter with [default] 3 trials*/
+
+            var exceptions = new List<Exception>();
+
+            for (int retry = 0; retry < retryCount; retry++)
+            {
+                try
+                {
+                    var chapter = await MangoChapter.Factory.CreateNewAsync(sourceName, url);
+
+                    return chapter;
+                }
+                catch (Exception ex)
+                {
+                    exceptions.Add(ex);
+                    await Task.Delay(retryInterval);
+                }
+            }
+
+            throw new AggregateException(exceptions);
+        }
+
+        protected string GetFileName(string src_url)
+        {
+            //Parse the URl and give back the original file name.
+            //Strat: Scan from the bottom up for the last /.
+            int last_slash_index = src_url.LastIndexOf('/');
+
+            string filename = string.Empty;
+            if (SourceName == "MangaHere")
+            {
+                int last_question_mark = src_url.LastIndexOf('?');
+                filename = src_url.Substring(last_slash_index + 1, last_question_mark - last_slash_index - 1);
+
+            }
+
+            else
+            {
+                filename = src_url.Substring(last_slash_index + 1);
+            }
+
+            //return a copy of that.
+            return filename;
+        }
+
+        protected int CalculateCompletedPercentage(int DownloadCount, int PagesCount)
+        {
+            float percentaged = (float)DownloadCount / (float)PagesCount;
+        
+            int percentage = (int)(percentaged * 100);
+
+            return percentage;
+        }
+
         void OnPropertyChanged(string propertyName)
         {
             /*Fire up the PropertyChanged Event with the given property name*/

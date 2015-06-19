@@ -44,6 +44,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Retry.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MangoEngine\MangoEngine.csproj">
+      <Project>{0fa3925c-6476-4008-8090-433c490e7976}</Project>
+      <Name>MangoEngine</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
