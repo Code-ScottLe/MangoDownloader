@@ -23,39 +23,16 @@ namespace Project_Mango
     public partial class MainWindow : Window
     {
         /*Custom Fileds*/
-        private MangoDownloader downloader;
 
-        public delegate void UpdateUI();
         public MainWindow()
         {
             InitializeComponent();
 
             /*More Init code*/
-            downloader = new MangoDownloader();
-            downloader.PropertyChanged += downloader_PropertyChanged;
-
-            SourceComboBox.Items.Add("Batoto");
-            SourceComboBox.Items.Add("MangaHere");
-            SourceComboBox.Items.Add("Fakku");
-            SourceComboBox.Items.Add("Pururin");
-        }
-
-        void downloader_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            /*Event handler for this.*/
-            if (e.PropertyName == "Log")
-            {
-                /*Log changed, update the log*/
-                DetailedProgressTextBox.AppendText(downloader.Log);
-                DetailedProgressTextBox.ScrollToEnd();
-            }
-
-            else if (e.PropertyName == "CompletedPercentage")
-            {
-                /*Progress changed, update progress bar*/
-                ProgressBar.Value = downloader.CompletedPercentage;
-
-            }
+            //SourceComboBox.Items.Add("Batoto");
+            //SourceComboBox.Items.Add("MangaHere");
+            //SourceComboBox.Items.Add("Fakku");
+            //SourceComboBox.Items.Add("Pururin");
         }
 
 
@@ -78,15 +55,7 @@ namespace Project_Mango
         }
 
         private async void DownloadButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            /*Kick off the download*/
-            downloader.SourceUrl = UrlTextBox.Text;
-            downloader.SaveLocation = SaveLocationTextBox.Text;
-            downloader.SourceName = SourceComboBox.SelectedItem.ToString();
-
-            //Start download
-            await downloader.StartAsync();
-
+        {         
 
         }
     }
