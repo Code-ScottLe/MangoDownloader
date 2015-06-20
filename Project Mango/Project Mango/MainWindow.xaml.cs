@@ -28,8 +28,15 @@ namespace Project_Mango
         public MainWindow()
         {
             InitializeComponent();
+            //More init
+            var downloader = (MangoChapterDownloader)this.Resources["Dummer"];
+
+            //Try to init the Combo Box
+            for (int i = 0; i < downloader.SourceNameList.Count;i++)
+            {
+                SourceComboBox.Items.Add(downloader.SourceNameList[i]);
+            }
             
-                      
         }
 
 

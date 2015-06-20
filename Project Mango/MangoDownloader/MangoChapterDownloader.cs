@@ -46,8 +46,8 @@ namespace MangoDownloader
 
         public List<string> SourceNameList
         {
-            get { return SourceNameList; }
-            set { SourceNameList = value; OnPropertyChanged("SourceNameList"); }
+            get { return _sourceNameList; }
+            set { _sourceNameList = value; OnPropertyChanged("SourceNameList"); }
         }
 
         public double CompletedPercentage
@@ -81,6 +81,7 @@ namespace MangoDownloader
             _completedPercentage = 0.0;
             _log = string.Empty;
             myClient = new HttpClient();
+            SupportedSourceList();
         }
         #endregion
 
@@ -177,7 +178,7 @@ namespace MangoDownloader
                 catch (Exception ex)
                 {
                     exceptions.Add(ex);
-                    await Task.Delay(retryInterval);
+                    Task.Delay(retryInterval);
                 }
             }
 
