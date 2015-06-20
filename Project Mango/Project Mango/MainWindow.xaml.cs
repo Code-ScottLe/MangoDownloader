@@ -28,12 +28,8 @@ namespace Project_Mango
         public MainWindow()
         {
             InitializeComponent();
-
-            /*More Init code*/
-            //SourceComboBox.Items.Add("Batoto");
-            //SourceComboBox.Items.Add("MangaHere");
-            //SourceComboBox.Items.Add("Fakku");
-            //SourceComboBox.Items.Add("Pururin");
+            
+                      
         }
 
 
@@ -41,7 +37,7 @@ namespace Project_Mango
         {
             /*Get user a Folder Browser to choose.*/
             WPFFolderBrowserDialog dialog = new WPFFolderBrowserDialog();
- 
+
             //Start from the previous choosen folder if needed to.
             if (!string.IsNullOrEmpty(SaveLocationTextBox.Text))
             {
@@ -57,7 +53,13 @@ namespace Project_Mango
 
         private async void DownloadButton_OnClick(object sender, RoutedEventArgs e)
         {         
-
+            
         }
     }
+
+    public class class1
+    {
+
+    }
+
 }
