@@ -178,7 +178,7 @@ namespace MangoDownloader
                 catch (Exception ex)
                 {
                     exceptions.Add(ex);
-                    Task.Delay(retryInterval);
+                    await Task.Delay(retryInterval);
                 }
             }
 

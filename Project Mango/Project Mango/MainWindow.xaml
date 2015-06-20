@@ -39,7 +39,7 @@
                  Grid.Column="1"
                  Grid.ColumnSpan="2"
                  Grid.Row="0" 
-                 Text="Please enter your URL here" 
+                 Text="{Binding URL, Mode=TwoWay}" 
                  VerticalAlignment="Top"   
                  HorizontalAlignment="Stretch"
                  FontSize="15"/>
@@ -58,7 +58,8 @@
                   VerticalAlignment="Top" 
                   Width="150" 
                   Grid.Column="3"
-                  Grid.Row="0"/>
+                  Grid.Row="0"
+                  />
 
         <Label x:Name="SaveLocationLabel" 
                Content="Save Location" 
@@ -73,7 +74,7 @@
                  TextWrapping="Wrap" 
                  Grid.Column="1" 
                  Grid.Row="0" 
-                 Text=" " 
+                 Text="{Binding SaveTo,Mode=TwoWay}" 
                  VerticalAlignment="Top"   
                  HorizontalAlignment="Stretch"
                  FontSize="15"/>
@@ -98,7 +99,7 @@
                      >
             <FlowDocument>
                 <Paragraph>
-                    <Run Text=""/>
+                    <Run Text="{Binding Log,Mode=Default}"/>
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
@@ -111,6 +112,7 @@
                      Grid.Row="2" 
                      VerticalAlignment="Center"
                      Minimum="0" Maximum="100"
+                     Value="{Binding CompletedPercentage,Mode=Default}"
                      />
         <Button x:Name="DownloadButton" 
                 Content="Download" 

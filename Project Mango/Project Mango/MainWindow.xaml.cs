@@ -59,14 +59,29 @@ namespace Project_Mango
         }
 
         private async void DownloadButton_OnClick(object sender, RoutedEventArgs e)
-        {         
-            
+        {
+            //Check Combo Box for the Source name
+            var selected = SourceComboBox.SelectedItem.ToString();
+
+            if(!string.IsNullOrEmpty(selected))
+            {
+                //Get the reference for the downloader
+                var downloader = (MangoChapterDownloader)this.Resources["Dummer"];
+
+                //Set the source name
+                downloader.SourceName = selected;
+
+                //Temporary disable the button
+                DownloadButton.IsEnabled = false;
+
+                //Kick off the download
+                await downloader.DownloadAsync();
+
+                //done with download, re-enable the button
+                DownloadButton.IsEnabled = true;
+            }
         }
     }
 
-    public class class1
-    {
-
-    }
 
 }
