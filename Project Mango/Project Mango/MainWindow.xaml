@@ -96,6 +96,7 @@
                      IsReadOnly="True"
                      Background="GhostWhite"
                      VerticalScrollBarVisibility="Auto"
+                     TextChanged="DetailedProgressTextBox_TextChanged"
                      >
             <FlowDocument>
                 <Paragraph>

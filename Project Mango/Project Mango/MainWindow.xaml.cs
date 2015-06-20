@@ -81,6 +81,12 @@ namespace Project_Mango
                 DownloadButton.IsEnabled = true;
             }
         }
+
+        private void DetailedProgressTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //just scroll to the end
+            DetailedProgressTextBox.ScrollToEnd();
+        }
     }
 
 
