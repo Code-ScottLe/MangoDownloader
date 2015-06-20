@@ -98,9 +98,11 @@ namespace MangoDownloader
         public async Task DownloadAsync()
         {
             /*Download the current chapter*/
+            Log += "Starting...\n";
 
             //Try to create an instance of the chapter
             MangoChapter myChapter = null;
+            Log += "Initialize chapter...\n";
 
             try
             {
@@ -110,11 +112,13 @@ namespace MangoDownloader
             catch (Exception e)
             {
                 //failed!
+                Log += "Unexpected Error. Can't initialize chapter\n";
                 return;
             }
 
             //Able to get the initialization to the source kick off the download
             int DownloadCount = 0;
+            Log += "Downloading...\n";
             do
             {
                 await DownloadCurrentPage(myChapter);
@@ -126,7 +130,10 @@ namespace MangoDownloader
                 CompletedPercentage = CalculateCompletedPercentage(DownloadCount, myChapter.PagesCount);
 
             } while (await myChapter.NextPageAsync() == true);
-        }
+
+            //Done
+            Log += "Download finished. " + DownloadCount + " pages\n";
+        } 
 
         protected async Task DownloadCurrentPage(MangoChapter source)
         {
@@ -136,7 +143,8 @@ namespace MangoDownloader
             string imgLink = await source.GetImageUrlAsync();
 
             //get the local path to save
-            string saveLocalPath = SaveTo + GetFileName(imgLink);
+            string fileName = GetFileName(imgLink);
+            string saveLocalPath = SaveTo + fileName;
 
             //Create a stream to the website.
             Stream downloadStream = null;
@@ -159,6 +167,9 @@ namespace MangoDownloader
             //Flush and close the stream
             saveStream.Flush();
             saveStream.Close();
+
+            //Log update
+            Log += fileName + " Downloaded\n";
         }
 
         protected async Task<Stream> GetDownloadStream(HttpClient myClient, string url, TimeSpan retryInterval, int retryCount = 3)
