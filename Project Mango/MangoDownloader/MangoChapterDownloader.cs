@@ -155,6 +155,8 @@ namespace MangoDownloader
              
             catch (Exception e)
             {
+                //Log update
+                Log += fileName + " Failed! (3 trials)\n";
                 return;
             }
 
