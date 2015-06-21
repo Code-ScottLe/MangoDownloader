@@ -49,11 +49,12 @@ namespace Project_Mango
             if (!string.IsNullOrEmpty(SaveLocationTextBox.Text))
             {
                 dialog.InitialDirectory = SaveLocationTextBox.Text;
+                
             }
 
             if (dialog.ShowDialog().GetValueOrDefault())
             {
-                SaveLocationTextBox.Text = dialog.FileName + "\\";
+                ((MangoChapterDownloader)this.Resources["Dummer"]).SaveTo = dialog.FileName + "\\";
             }
             
         }
