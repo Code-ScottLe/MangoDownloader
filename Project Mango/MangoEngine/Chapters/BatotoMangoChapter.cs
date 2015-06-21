@@ -30,6 +30,7 @@ namespace MangoEngine.Chapters
         protected BatotoMangoChapter() : base()
         {
             /*Default Constructor*/
+            SourceName = "Batoto";
             _pagesLinks = new List<string>();
             _currentPageIndex = 0;
         }
@@ -37,6 +38,7 @@ namespace MangoEngine.Chapters
         public BatotoMangoChapter(string url) : base(url)
         {
             /*Overloaded Constructors, accept a string of batoto url*/
+            SourceName = "Batoto";
             _pagesLinks = new List<string>();
             _currentPageIndex = 0;
         }
