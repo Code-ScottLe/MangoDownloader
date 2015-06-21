@@ -19,6 +19,8 @@ namespace MangoEngine.Chapters
         private string _baseUrl;
         private int _pagesCount;
         private Encoding _encodingType;
+        private string _mangaTitle;
+        private string _chapterTitle;
 
         #endregion
 
@@ -64,6 +66,18 @@ namespace MangoEngine.Chapters
             }
         }
 
+        public string MangaTitle
+        {
+            get { return _mangaTitle; }
+            set { _mangaTitle = value; }
+        }
+
+        public string ChapterTitle
+        {
+            get { return _chapterTitle; }
+            set { _chapterTitle = value; }
+        }
+
         #endregion
 
         #region Constructors
@@ -78,6 +92,8 @@ namespace MangoEngine.Chapters
             _baseUrl = string.Empty;
             _pagesCount = 0;
             _encodingType = Encoding.UTF8;
+            _chapterTitle = string.Empty;
+            _mangaTitle = string.Empty;
         }
         #endregion
 

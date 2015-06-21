@@ -119,11 +119,13 @@ namespace MangoEngine.Chapters
 
                 //Get the Title of the Manga inside the inner html of the href node inside the 1st li node
                 string mangaTitle = liNodesCollection[0].ChildNodes[0].InnerText;
+                MangaTitle = mangaTitle;
 
                 //Get the Title of the Chapter inside select box of the 2nd li node.
                 HtmlNode chapterSelectNode = liNodesCollection[1].SelectSingleNode("select");
                 HtmlNode selectedChapterNode = chapterSelectNode.SelectSingleNode("option[@selected=\"selected\"]");
                 string chapterTitle = selectedChapterNode.NextSibling.InnerText;
+                ChapterTitle = chapterTitle;
                     
             });    
 
