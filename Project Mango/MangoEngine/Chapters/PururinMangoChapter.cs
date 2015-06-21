@@ -51,6 +51,8 @@ namespace MangoEngine.Chapters
             InitAsync().Wait();
         }
 
+        /*NSFW content, use this link to test http://pururin.com/view/13818/00/aikawarazu_1.html */
+
         internal async override Task InitAsync()
         {
             /*Initialize the current instance asynchronously*/
