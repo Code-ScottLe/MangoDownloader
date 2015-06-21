@@ -109,7 +109,22 @@ namespace MangoEngine.Chapters
                 }    
 
                 //Set the number of pages    
-                PagesCount = _pagesLinks.Count;    
+                PagesCount = _pagesLinks.Count;
+
+                //Get the Ul Code that contains everthing in the frame
+                HtmlNode UlNode = selectNode.ParentNode.ParentNode;
+
+                //Get the list of li nodes inside the Ul Node.
+                HtmlNodeCollection liNodesCollection = UlNode.SelectNodes("li");
+
+                //Get the Title of the Manga inside the inner html of the href node inside the 1st li node
+                string mangaTitle = liNodesCollection[0].ChildNodes[0].InnerText;
+
+                //Get the Title of the Chapter inside select box of the 2nd li node.
+                HtmlNode chapterSelectNode = liNodesCollection[1].SelectSingleNode("select");
+                HtmlNode selectedChapterNode = chapterSelectNode.SelectSingleNode("option[@selected=\"selected\"]");
+                string chapterTitle = selectedChapterNode.NextSibling.InnerText;
+                    
             });    
 
             //Dispose the client
