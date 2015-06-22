@@ -157,7 +157,7 @@ namespace MangoDownloader
             Stream downloadStream = null;
             try
             {
-                downloadStream = await GetDownloadStream(myClient, imgLink, new TimeSpan(0, 0, 1));
+                downloadStream = await GetDownloadStream(myClient, imgLink, new TimeSpan(0, 0, 2));
             }
              
             catch (Exception e)
