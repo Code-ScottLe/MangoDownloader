@@ -5,8 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project_Mango"
         mc:Ignorable="d"
-        Title="About" Height="300" Width="300">
+        Title="About" Height="120.667" Width="526.667"
+        ResizeMode="NoResize">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
         
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition Width="0.9*"/>
+            <ColumnDefinition Width="0.1*"/>
+        </Grid.ColumnDefinitions>
+        
+        <TextBox x:Name="AboutMessage"
+                 Grid.Column="1"
+                 Grid.Row="0"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center"
+                 FontSize="18"
+                 IsReadOnly="True"
+                 Text="Created by AMRAAM_Missiles/Code-ScottLe"
+                 />
+        <TextBox x:Name="AboutRedditLink"
+                 Grid.Column="1"
+                 Grid.Row="1"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center"
+                 FontSize="15"
+                 IsReadOnly="True"
+                 Text="reddit.com/u/AMRAAM_Missiles"
+                 />
+
+
     </Grid>
 </Window>

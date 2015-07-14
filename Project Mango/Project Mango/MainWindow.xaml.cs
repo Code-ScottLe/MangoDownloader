@@ -88,6 +88,13 @@ namespace Project_Mango
             //just scroll to the end
             DetailedProgressTextBox.ScrollToEnd();
         }
+
+        private void AboutButton_Click(object sender, RoutedEventArgs e)
+        {
+            //Open up the about page.
+            var page = new About();
+            page.Show();
+        }
     }
 
 
