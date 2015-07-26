@@ -34,6 +34,7 @@ namespace MangoEngine.Chapters
         protected MangaHereMangoChapter() : base()
         {
             /*Default Constructor*/
+            SourceName = "MangaHere";
             _pagesLinks = new List<string>();
             _currentPageIndex = 0;
         }
@@ -41,6 +42,7 @@ namespace MangoEngine.Chapters
         public MangaHereMangoChapter(string url) : base(url)
         {
             /*Overloaded Constructor, accept a string of URL for the MangaHere source.*/
+            SourceName = "MangaHere";
             _pagesLinks = new List<string>();
             _currentPageIndex = 0;
         }
@@ -101,12 +103,12 @@ namespace MangoEngine.Chapters
                 }    
 
                 /*Load the stream up as HTML*/    
-                HtmlDocument myDocument = new HtmlDocument();    
-                myDocument.Load(sourceStream, EncodingType);    
+                HtmlDocument mangaHereDocument = new HtmlDocument();    
+                mangaHereDocument.Load(sourceStream, EncodingType);    
 
                 /*MangaHere has the list of all the pages with links in a drop down*/    
                 //Get the select node which contains all the pages with links    
-                HtmlNode selectNode = myDocument.DocumentNode.SelectSingleNode("//select[@class = \"wid60\"]");    
+                HtmlNode selectNode = mangaHereDocument.DocumentNode.SelectSingleNode("//select[@class = \"wid60\"]");    
 
                 if(selectNode == null)
                 {
@@ -120,7 +122,18 @@ namespace MangoEngine.Chapters
                 }    
 
                 //Set the number of pages    
-                PagesCount = _pagesLinks.Count;    
+                PagesCount = _pagesLinks.Count;
+
+                //Get the div title node
+                HtmlNode titleDivNode = mangaHereDocument.DocumentNode.SelectSingleNode("//section[@class = \"readpage_top\"]/div[@class = \"title\"]");
+
+                //Get the h2 node
+                HtmlNode h2Node = titleDivNode.SelectSingleNode("h2");
+
+                //Get the Manga title
+                string title = MangaTitleHandler(h2Node.InnerText);
+                MangaTitle = title;
+
             });    
 
             //Dispose the client
@@ -207,6 +220,15 @@ namespace MangoEngine.Chapters
             //return the url
             return imgUrl;
          
+        }
+
+        private string MangaTitleHandler(string title)
+        {
+            int indexed = title.LastIndexOf("Manga");
+
+            string cut = title.Substring(0, indexed - 1);
+
+            return cut;
         }
 
         #endregion

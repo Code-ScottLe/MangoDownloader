@@ -27,6 +27,7 @@ namespace MangoEngine.Chapters
         /*Constructors*/
         protected PururinMangoChapter() : base()
         {
+            SourceName = "Pururin";
             _nextPageUrl = string.Empty;
             _pururinPrefix = "http://pururin.com";
             _currentPage = 1;
@@ -34,6 +35,7 @@ namespace MangoEngine.Chapters
 
         public PururinMangoChapter(string url) : base(url)
         {
+            SourceName = "Pururin";
             _nextPageUrl = string.Empty;
             _pururinPrefix = "http://pururin.com";
             _currentPage = 1;
@@ -48,6 +50,8 @@ namespace MangoEngine.Chapters
         {
             InitAsync().Wait();
         }
+
+        /*NSFW content, use this link to test http://pururin.com/view/13818/00/aikawarazu_1.html */
 
         internal async override Task InitAsync()
         {
@@ -118,8 +122,13 @@ namespace MangoEngine.Chapters
                 }    
 
                 //set the number of pages (plus one due to the index are 0-based)    
-                PagesCount = numPages + 1;    
+                PagesCount = numPages + 1;
 
+                //Get the Manga Title
+                HtmlNode headerBreadcrumbsNode = pururinDocument.DocumentNode.SelectSingleNode("//div[@class = \"header-breadcrumbs\"]");
+                HtmlNode spanTitleNode = headerBreadcrumbsNode.SelectNodes("span")[3];
+                string mangaTitle = spanTitleNode.SelectSingleNode("a").SelectSingleNode("span").InnerText;
+                MangaTitle = mangaTitle;
             });
 
             //done with the client
@@ -234,6 +243,7 @@ namespace MangoEngine.Chapters
 
                     //set it to the CurrentUrl
                     CurrentUrl = _pururinPrefix + partialLink;
+
                 });
 
 

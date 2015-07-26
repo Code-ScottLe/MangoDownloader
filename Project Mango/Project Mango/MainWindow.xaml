@@ -1,16 +1,17 @@
-﻿<Window x:Class="Project_Mango.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Project Mango v2.0" Height="600" Width="1020"
         xmlns:local="clr-namespace:Project_Mango"
         xmlns:MangoDownloader="clr-namespace:MangoDownloader;assembly=MangoDownloader"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Project_Mango.MainWindow"
+        Title="Project Mango v2.0" Height="600" Width="1020"
         >
     <Window.Resources>
         <MangoDownloader:MangoChapterDownloader x:Key="Dummer" x:Name="Dummer"/>
     </Window.Resources>
 
     <Grid Background="GhostWhite" DataContext="{StaticResource Dummer}">
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="0.3*"/>
             <RowDefinition Height="0.6*"/>
@@ -18,7 +19,7 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="0.7*"/>
             <ColumnDefinition Width="0.05*"/>
             <ColumnDefinition Width="0.25*"/>
@@ -26,105 +27,112 @@
         </Grid.ColumnDefinitions>
 
         <Label x:Name="UrLabel" 
-               Content="URL" 
-               HorizontalAlignment="Left" 
-               Margin="10,12,0,-110" 
-               Grid.Column="1" 
-               Grid.Row="0" 
-               VerticalAlignment="Top"/>
+			Content="URL" 
+			HorizontalAlignment="Left" 
+			Margin="10,12,0,-110" 
+			Grid.Column="1" 
+			Grid.Row="0" 
+			VerticalAlignment="Top"/>
 
         <TextBox x:Name="UrlTextBox" 
-                 Margin="10,37,0,0" 
-                 TextWrapping="Wrap" 
-                 Grid.Column="1"
-                 Grid.ColumnSpan="2"
-                 Grid.Row="0" 
-                 Text="{Binding URL, Mode=TwoWay}" 
-                 VerticalAlignment="Top"   
-                 HorizontalAlignment="Stretch"
-                 FontSize="15"/>
+			Margin="10,37,0,0" 
+			TextWrapping="Wrap" 
+			Grid.Column="1"
+			Grid.ColumnSpan="2"
+			Grid.Row="0" 
+			Text="{Binding URL, Mode=TwoWay}" 
+			VerticalAlignment="Top"   
+			HorizontalAlignment="Stretch"
+			FontSize="15"/>
 
         <Label x:Name="SourceLabel" 
-               Content="Source" 
-               HorizontalAlignment="Right" 
-               Margin="0,12,10,0" 
-               VerticalAlignment="Top" 
-               Grid.Column="3"
-               Grid.Row="0"/>
+			Content="Source" 
+			HorizontalAlignment="Right" 
+			Margin="0,12,10,0" 
+			VerticalAlignment="Top" 
+			Grid.Column="3"
+			Grid.Row="0"/>
 
         <ComboBox x:Name="SourceComboBox" 
-                  HorizontalAlignment="Right" 
-                  Margin="0,37,10,0" 
-                  VerticalAlignment="Top" 
-                  Width="150" 
-                  Grid.Column="3"
-                  Grid.Row="0"
+			HorizontalAlignment="Right" 
+			Margin="0,37,10,0" 
+			VerticalAlignment="Top" 
+			Width="150" 
+			Grid.Column="3"
+			Grid.Row="0"
                   />
 
         <Label x:Name="SaveLocationLabel" 
-               Content="Save Location" 
-               HorizontalAlignment="Left" 
-               Margin="10,65,0,-110" 
-               Grid.Column="1" 
-               Grid.Row="0" 
-               VerticalAlignment="Top"/>
+			Content="Save Location" 
+			HorizontalAlignment="Left" 
+			Margin="10,65,0,-110" 
+			Grid.Column="1" 
+			Grid.Row="0" 
+			VerticalAlignment="Top"/>
 
         <TextBox x:Name="SaveLocationTextBox" 
-                 Margin="10,90,0,0" 
-                 TextWrapping="Wrap" 
-                 Grid.Column="1" 
-                 Grid.Row="0" 
-                 Text="{Binding SaveTo,Mode=TwoWay}" 
-                 VerticalAlignment="Top"   
-                 HorizontalAlignment="Stretch"
-                 FontSize="15"/>
+			Margin="10,90,0,0" 
+			TextWrapping="Wrap" 
+			Grid.Column="1" 
+			Grid.Row="0" 
+			Text="{Binding SaveTo, Mode=TwoWay}" 
+			VerticalAlignment="Top"   
+			HorizontalAlignment="Stretch"
+			FontSize="15"/>
         <Button x:Name="SaveLocationChooseButton" 
-                Content="..." 
-                Grid.Column="2" 
-                HorizontalAlignment="Stretch" 
-                Margin="10,90,0,0" 
-                VerticalAlignment="Top" 
-                Height="22"
-                Click="SaveLocationChooseButton_OnClick"/>
+			Content="..." 
+			Grid.Column="2" 
+			HorizontalAlignment="Stretch" 
+			Margin="10,90,0,0" 
+			VerticalAlignment="Top" 
+			Height="22"
+			Click="SaveLocationChooseButton_OnClick"/>
         <RichTextBox x:Name="DetailedProgressTextBox" 
-                     HorizontalAlignment="Left" 
-                     Margin="0,0,0,0" 
-                     Grid.Row="1" 
-                     VerticalAlignment="Stretch" 
-                     Grid.Column="1"
-                     Grid.ColumnSpan="3" Width="auto"
-                     IsReadOnly="True"
-                     Background="GhostWhite"
-                     VerticalScrollBarVisibility="Auto"
-                     TextChanged="DetailedProgressTextBox_TextChanged"
+			HorizontalAlignment="Left" 
+			Margin="0,0,0,0" 
+			Grid.Row="1" 
+			VerticalAlignment="Stretch" 
+			Grid.Column="1"
+			Grid.ColumnSpan="3" Width="auto"
+			IsReadOnly="True"
+			Background="GhostWhite"
+			VerticalScrollBarVisibility="Auto"
+			TextChanged="DetailedProgressTextBox_TextChanged"
                      >
             <FlowDocument>
                 <Paragraph>
-                    <Run Text="{Binding Log,Mode=Default}"/>
+                    <Run Text="{Binding Log, Mode=Default}"/>
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
 
         <ProgressBar x:Name="ProgressBar" 
-                     Grid.Column="3" 
-                     HorizontalAlignment="Stretch"
-                     Height="25"
-                     Margin="0,16" 
-                     Grid.Row="2" 
-                     VerticalAlignment="Center"
-                     Minimum="0" Maximum="100"
-                     Value="{Binding CompletedPercentage,Mode=Default}"
+			Grid.Column="3" 
+			HorizontalAlignment="Stretch"
+			Height="25"
+			Margin="0,16" 
+			Grid.Row="2" 
+			VerticalAlignment="Center"
+			Minimum="0" Maximum="100"
+			Value="{Binding CompletedPercentage, Mode=Default}"
                      />
         <Button x:Name="DownloadButton" 
-                Content="Download" 
-                Grid.Column="1" 
-                HorizontalAlignment="Left" 
-                Margin="0,0,0,0" 
-                Grid.Row="2" 
-                VerticalAlignment="Center" 
-                Width="100"
-                Height="30"
-                Click="DownloadButton_OnClick"/>
+			Content="Download" 
+			Grid.Column="1" 
+			HorizontalAlignment="Left" 
+			Margin="0,0,0,0" 
+			Grid.Row="2" 
+			VerticalAlignment="Center" 
+			Width="100"
+			Height="30"
+			Click="DownloadButton_OnClick"/>
+
+
+        <Button x:Name="AboutButton" 
+                Content="?" 
+                Grid.Column="2" 
+                Margin="10,16.033,10,16.034" 
+                Grid.Row="2" Background="#FFDDDDDD" Click="AboutButton_Click"/>
 
 
     </Grid>

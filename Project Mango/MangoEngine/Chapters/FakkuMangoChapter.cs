@@ -29,6 +29,7 @@ namespace MangoEngine.Chapters
         protected FakkuMangoChapter() : base()
         {
             /*Default constructor*/
+            SourceName = "Fakku";
             _imgSource = string.Empty;
             _currentPageIndex = 0;
         }
@@ -36,6 +37,7 @@ namespace MangoEngine.Chapters
         public FakkuMangoChapter(string url) : base(url)
         {
             /*Overloaded Constructor, accept a string of Fakku URL*/
+            SourceName = "Fakku";
             _imgSource = string.Empty;
             _currentPageIndex = 0;
         }
@@ -48,7 +50,7 @@ namespace MangoEngine.Chapters
         {
             InitAsync().Wait();
         }
-
+        /*NSFW contents, use this to test: https://www.fakku.net/doujinshi/kosaki-chan-to-h-na-shinkon-seikatsu-english */
         internal override async Task InitAsync()
         {
             /*Initialzie the current instance of the FakkuMango_Source (async)*/
@@ -153,7 +155,12 @@ namespace MangoEngine.Chapters
                 _imgSource = imgLink.Substring(0, imgLink.LastIndexOf('/') + 1); ;    
 
                 //Set the page index    
-                _currentPageIndex = 1;    
+                _currentPageIndex = 1;
+
+                //Get the Manga Title from the Content name Div node
+                HtmlNode contentNameDivNode = div9ColumnscontentNode.SelectSingleNode("//div[@class = \"content-name\"]");
+                string mangaTitle = contentNameDivNode.SelectSingleNode("h1").InnerText;
+                MangaTitle = mangaTitle;
             });    
 
             //dispose the client

@@ -116,6 +116,13 @@ namespace MangoDownloader
                 return;
             }
 
+            //Done with initialize the chapter, displaying the details
+            StringBuilder ChapterDetail = new StringBuilder();
+            ChapterDetail.AppendFormat("Manga Name: {0}\nChapter Name: {1}\nPages: {2}\nHost: {3}\n", 
+                myChapter.MangaTitle, myChapter.ChapterTitle, myChapter.PagesCount, myChapter.SourceName);
+
+            Log += ChapterDetail.ToString();
+
             //Able to get the initialization to the source kick off the download
             int DownloadCount = 0;
             Log += "Downloading...\n";
@@ -150,11 +157,13 @@ namespace MangoDownloader
             Stream downloadStream = null;
             try
             {
-                downloadStream = await GetDownloadStream(myClient, imgLink, new TimeSpan(0, 0, 1));
+                downloadStream = await GetDownloadStream(myClient, imgLink, new TimeSpan(0, 0, 2));
             }
              
             catch (Exception e)
             {
+                //Log update
+                Log += fileName + " Failed! (3 trials)\n";
                 return;
             }
 
