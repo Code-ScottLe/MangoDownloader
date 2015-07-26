@@ -68,7 +68,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="WPFFolderBrowser">
-      <HintPath>..\packages\WPFFolderBrowser\WPFFolderBrowser.dll</HintPath>
+      <HintPath>..\packages\WPFFolderBrowserDialog\WPFFolderBrowser.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
