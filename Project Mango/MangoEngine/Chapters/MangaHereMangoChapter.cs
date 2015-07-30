@@ -86,7 +86,7 @@ namespace MangoEngine.Chapters
             Stream sourceStream = null;
             try
             {
-                sourceStream = await myClient.GetStreamAsync(CurrentUrl);
+                sourceStream = await base.GetStreamAsync(myClient, CurrentUrl, new TimeSpan(0, 0, 3));
             }
                  
             catch(Exception e)
@@ -185,12 +185,12 @@ namespace MangoEngine.Chapters
             //MangaHere uses GZip, but switch off randomly    
             if (GetCompression(mangaHereResponseMessage) == "gzip")    
             {    
-                mangaHereStream = new GZipStream(await myClient.GetStreamAsync(CurrentUrl),CompressionMode.Decompress);    
+                mangaHereStream = new GZipStream(await base.GetStreamAsync(myClient, CurrentUrl, new TimeSpan(0, 0, 3)), CompressionMode.Decompress);    
             }    
 
             else    
             {    
-                mangaHereStream = await myClient.GetStreamAsync(CurrentUrl);    
+                mangaHereStream = await base.GetStreamAsync(myClient, CurrentUrl, new TimeSpan(0, 0, 3));    
             }    
 
             //Async-Wrapper for parsing    
