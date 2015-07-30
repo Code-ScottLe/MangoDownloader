@@ -82,7 +82,7 @@ namespace MangoEngine.Chapters
             Stream fakkuStream = null;
             try
             {
-                fakkuStream = await myClient.GetStreamAsync(CurrentUrl);
+                fakkuStream = await base.GetStreamAsync(myClient, CurrentUrl, new TimeSpan(0, 0, 3));
             }
                 
             catch (Exception e)
