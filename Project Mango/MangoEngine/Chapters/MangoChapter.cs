@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
+using System.IO;
 using MangoEngine.Factories;
 
 namespace MangoEngine.Chapters
@@ -118,7 +119,7 @@ namespace MangoEngine.Chapters
         public abstract string GetImageUrl();
 
         public abstract Task<string> GetImageUrlAsync();
-
+        //
         public virtual Encoding GetEncoding(HttpResponseMessage responseMessage)
         {
             /*Get the Encoding of the WebSite from the HttpResponseMessage*/
@@ -159,6 +160,29 @@ namespace MangoEngine.Chapters
             {
                 return string.Empty;
             }
+        }
+
+        protected virtual async Task<Stream> GetStreamAsync(HttpClient myClient, string url, TimeSpan retryInterval, int retryCount = 3)
+        {
+            /*Get the stream to the Website with automatic retry*/
+            var exceptions = new List<Exception>();
+
+            for (int retry = 0; retry < retryCount; retry++)
+            {
+                try
+                {
+                    var stream = await myClient.GetStreamAsync(url);
+
+                    return stream;
+                }
+                catch (Exception ex)
+                {
+                    exceptions.Add(ex);
+                    await Task.Delay(retryInterval);
+                }
+            }
+
+            throw new AggregateException(exceptions);
         }
 
         #endregion

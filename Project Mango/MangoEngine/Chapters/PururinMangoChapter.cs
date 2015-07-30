@@ -86,7 +86,7 @@ namespace MangoEngine.Chapters
             Stream pururinStream = null;
             try
             {
-                pururinStream = await myClient.GetStreamAsync(CurrentUrl);
+                pururinStream = await base.GetStreamAsync(myClient, CurrentUrl, new TimeSpan(0, 0, 3));
             }
 
             catch (Exception e)
@@ -154,7 +154,7 @@ namespace MangoEngine.Chapters
             Stream pururinStream = null;
             try
             {
-                pururinStream = await myClient.GetStreamAsync(CurrentUrl);
+                pururinStream = await base.GetStreamAsync(myClient,CurrentUrl, new TimeSpan (0,0,3));
             }
                  
             catch (Exception e)
@@ -226,7 +226,7 @@ namespace MangoEngine.Chapters
             {
                 //Get the Stream to the website.
                 HttpClient myClient = new HttpClient();
-                Stream pururinStream = await myClient.GetStreamAsync(CurrentUrl);
+                Stream pururinStream = await base.GetStreamAsync(myClient, CurrentUrl, new TimeSpan(0, 0, 3));
 
                 //Async-Wrapper for the parsing portion
                 await Task.Run(() =>
