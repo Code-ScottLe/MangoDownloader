@@ -82,7 +82,7 @@ namespace MangoEngine.Chapters
             Stream batotoStream = null;
             try
             {
-                batotoStream = await myClient.GetStreamAsync(CurrentUrl);
+                batotoStream = await base.GetStreamAsync(myClient, CurrentUrl, new TimeSpan(0, 0, 3));
             }
                  
             catch (Exception e)
@@ -175,7 +175,7 @@ namespace MangoEngine.Chapters
             Stream batotoStream = null;
             try
             {
-                batotoStream = await myClient.GetStreamAsync(CurrentUrl);
+                batotoStream = await base.GetStreamAsync(myClient, CurrentUrl, new TimeSpan(0, 0, 3));
             }
 
             catch (Exception e)
