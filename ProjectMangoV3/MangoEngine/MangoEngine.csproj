@@ -113,13 +113,14 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Chapters\BatotoChapter.cs" />
+    <Compile Include="Chapters\MangaChapter.cs" />
+    <Compile Include="Exceptions\MangoException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Properties\MangoEngine.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Chapters\" />
-    <Folder Include="Exceptions\" />
+    <Folder Include="Pages\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
