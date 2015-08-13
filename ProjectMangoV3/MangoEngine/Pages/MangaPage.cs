@@ -83,7 +83,7 @@ namespace MangoEngine.Pages
 
         #region Constructors
         /*Constructors*/
-        protected MangaPage()
+        public MangaPage()
         {
             /*Default Constructor. Accepts no agurments*/
             _sourceName = string.Empty;
@@ -92,7 +92,7 @@ namespace MangoEngine.Pages
             _pageIndex = -1;
         }
 
-        protected MangaPage(string url) :this()
+        public MangaPage(string url) :this()
         {
             /*Accept a string of url for the page Url*/
             _pageUrl = url;
