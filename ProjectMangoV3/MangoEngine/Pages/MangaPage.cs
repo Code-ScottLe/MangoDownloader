@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace MangoEngine.Pages
 {
-    public class MangaPage
+    public abstract class MangaPage
     {
         #region Fields;
         /*Fields*/
+        private string _sourceName;
         private string _pageUrl;
         private string _imgUrl;
         private int _pageIndex;
@@ -37,7 +38,12 @@ namespace MangoEngine.Pages
         {
             get
             {
-                return _imgUrl;
+                if (!string.IsNullOrEmpty(_imgUrl))
+                {
+                    return _imgUrl;
+                }
+
+                return GetImageUrlAsync().Result;
             }
 
             protected set
@@ -59,15 +65,42 @@ namespace MangoEngine.Pages
             }
         }
 
+        public string SourceName
+        {
+            get
+            {
+                return _sourceName;
+            }
+
+            protected set
+            {
+                _sourceName = value;
+            }
+        }
 
         #endregion
 
         #region Constructors
         /*Constructors*/
+        protected MangaPage()
+        {
+            /*Default Constructor. Accepts no agurments*/
+            _sourceName = string.Empty;
+            _pageUrl = string.Empty;
+            _imgUrl = string.Empty;
+            _pageIndex = -1;
+        }
+
+        protected MangaPage(string url) :this()
+        {
+            /*Accept a string of url for the page Url*/
+            _pageUrl = url;
+        }
         #endregion
 
         #region Methods
         /*Methods*/
+        public abstract Task<string> GetImageUrlAsync();
         #endregion
     }
 }
