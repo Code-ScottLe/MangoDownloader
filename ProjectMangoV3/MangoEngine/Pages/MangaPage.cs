@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MangoEngine.Exceptions;
 
 namespace MangoEngine.Pages
 {
@@ -43,7 +44,7 @@ namespace MangoEngine.Pages
                     return _imgUrl;
                 }
 
-                return GetImageUrlAsync().Result;
+                throw new MangoException("ImgUrl is null! Please run GetImageUrlAsync()");
             }
 
             protected set
