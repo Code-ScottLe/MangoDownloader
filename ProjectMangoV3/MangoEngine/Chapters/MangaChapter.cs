@@ -105,7 +105,7 @@ namespace MangoEngine.Chapters
 
         #region Constructors
         /*Constructors*/
-        protected MangaChapter()
+        public MangaChapter()
         {
             /*Default Constructor, Accepts no parameter*/
             _sourceName = string.Empty;
@@ -116,7 +116,7 @@ namespace MangoEngine.Chapters
             _pages = new List<MangaPage>();
         }
 
-        protected MangaChapter(string url): this()
+        public MangaChapter(string url): this()
         {
             /*Overloaded Constructor. Accepts a string of URL for a manga chapter.*/
             _baseUrl = url;
