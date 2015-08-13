@@ -27,6 +27,17 @@ namespace MangoEngine.Chapters
 
         #region Constructors
         /*Constructors*/
+        public BatotoChapter() : base()
+        {
+            /*Default constructor, accept no agrument*/
+            SourceName = "Batoto";
+        }
+
+        public BatotoChapter(string url) : base(url)
+        {
+            /*Overloaded constructor, accept a string of URL for the chapter*/
+            SourceName = "Batoto";
+        }
         #endregion
 
         #region Methods
