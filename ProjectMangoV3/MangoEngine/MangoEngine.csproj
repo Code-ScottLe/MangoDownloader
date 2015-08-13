@@ -116,6 +116,7 @@
     <Compile Include="Chapters\BatotoChapter.cs" />
     <Compile Include="Chapters\MangaChapter.cs" />
     <Compile Include="Exceptions\MangoException.cs" />
+    <Compile Include="Helpers\MangoWebHelpers.cs" />
     <Compile Include="Pages\MangaPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Properties\MangoEngine.rd.xml" />
