@@ -63,40 +63,48 @@ namespace MangoEngine.Chapters
             //Parse the given stream of html
             var batotoDocument = await parser.ParseAsync(batotoStream);
 
-            /*Batoto has the list of all the pages with links in a drop down*/
-            //Get the select node which contains all the pages with links
-            var selectNode = batotoDocument.All.Where(n => n.Id == "page_select").Select(n => n).First();   
-            
-            //Iterate through the option nodes and get the links for each pages.
-            for(int i = 0; i < selectNode.Children.Count(); i++)
+            //Async Wrapper.
+            await Task.Run(() =>
             {
-                //Create an instance of a BatotoPage
-                BatotoPage myPage = new BatotoPage();
+                /*Batoto has the list of all the pages with links in a drop down*/
+                //Get the select node which contains all the pages with links
+                var selectNode = batotoDocument.All.Where(n => n.Id == "page_select").Select(n => n).First();
 
-                //set the link
-                myPage.PageUrl = selectNode.Children[i].Attributes["value"].Value;
+                //Iterate through the option nodes and get the links for each pages.
+                for (int i = 0; i < selectNode.Children.Count(); i++)
+                {
+                    //Create an instance of a BatotoPage
+                    BatotoPage myPage = new BatotoPage();
 
-                //set the page number
-                myPage.PageIndex = i + 1;
+                    //set the link
+                    myPage.PageUrl = selectNode.Children[i].Attributes["value"].Value;
 
-                //Add to the list of pages.
-                Pages.Add(myPage);
-            }
-            
-            //Get the Ul Node that contains everthin in the frame
-            var UlNode = selectNode.ParentElement.ParentElement;
+                    //set the page number
+                    myPage.PageIndex = i + 1;
 
-            //Get the tilte of the manga inside the inner html of the 1st li node
-            string title = UlNode.Children[0].TextContent;
-            MangaTitle = title;
+                    //Add to the list of pages.
+                    Pages.Add(myPage);
+                }
 
-            //Get the title of the chapter inside the select box of the 2nd li node.
-            var chapterSelectNode = UlNode.Children[1].Children[0];           
-            var selectedchapterNode = (from n in chapterSelectNode.Children
-                               where (n as IHtmlOptionElement).IsSelected == true
-                               select n).First();
-            string chapterTitle = selectedchapterNode.TextContent;
-            ChapterTitle = chapterTitle;
+                //Get the Ul Node that contains everthin in the frame
+                var UlNode = selectNode.ParentElement.ParentElement;
+
+                //Get the tilte of the manga inside the inner html of the 1st li node
+                string title = UlNode.Children[0].TextContent;
+                MangaTitle = title;
+
+                //Get the title of the chapter inside the select box of the 2nd li node.
+                var chapterSelectNode = UlNode.Children[1].Children[0];
+                var selectedchapterNode = (from n in chapterSelectNode.Children
+                                           where (n as IHtmlOptionElement).IsSelected == true
+                                           select n).First();
+                string chapterTitle = selectedchapterNode.TextContent;
+                ChapterTitle = chapterTitle;
+
+            });
+          
+            //Done with the client. Dispose
+            myClient.Dispose();
         }
     }
 }
