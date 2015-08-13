@@ -12,7 +12,7 @@ namespace MangoEngine.Pages
         /*Fields*/
         private string _pageUrl;
         private string _imgUrl;
-
+        private int _pageIndex;
         #endregion
 
         #region Property
@@ -24,9 +24,12 @@ namespace MangoEngine.Pages
                 return _pageUrl;
             }
 
-            protected set
+            set
             {
                 _pageUrl = value;
+
+                //new page was manually modified. delete the current imgUrl if needed to
+                ImgUrl = "";
             }
         }
 
@@ -42,6 +45,21 @@ namespace MangoEngine.Pages
                 _imgUrl = value;
             }
         }
+
+        public int PageIndex
+        {
+            get
+            {
+                return _pageIndex;
+            }
+
+            set
+            {
+                _pageIndex = value;
+            }
+        }
+
+
         #endregion
 
         #region Constructors
