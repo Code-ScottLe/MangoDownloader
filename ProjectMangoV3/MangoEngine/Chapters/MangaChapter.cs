@@ -125,7 +125,7 @@ namespace MangoEngine.Chapters
 
         #region Methods
         /*Methods*/
-        internal abstract Task InitAsync();
+        public abstract Task InitAsync();
 
         
         #endregion
