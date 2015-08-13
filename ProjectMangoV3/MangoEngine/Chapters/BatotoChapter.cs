@@ -9,7 +9,7 @@ using System.IO;
 
 namespace MangoEngine.Chapters
 {
-    public class BatotoChapter
+    public class BatotoChapter : MangaChapter
     {
         #region Fields;
         /*Fields*/
