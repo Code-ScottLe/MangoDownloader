@@ -115,6 +115,7 @@
   <ItemGroup>
     <Compile Include="Chapters\BatotoChapter.cs" />
     <Compile Include="Chapters\MangaChapter.cs" />
+    <Compile Include="Chapters\MangaHereChapter.cs" />
     <Compile Include="Exceptions\MangoException.cs" />
     <Compile Include="Helpers\MangoWebHelpers.cs" />
     <Compile Include="Pages\BatotoPage.cs" />
