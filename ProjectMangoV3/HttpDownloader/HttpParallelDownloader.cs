@@ -8,5 +8,17 @@ namespace HttpDownloader
 {
     public class HttpParallelDownloader
     {
+        #region Fields
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Constructors
+        #endregion
+
+        #region Methods
+        #endregion
+
     }
 }
