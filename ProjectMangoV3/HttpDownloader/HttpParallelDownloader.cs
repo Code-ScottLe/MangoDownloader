@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HttpDownloader
 {
-    public class Class1
+    public class HttpParallelDownloader
     {
     }
 }
