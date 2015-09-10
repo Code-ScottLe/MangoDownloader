@@ -113,6 +113,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HttpDownloadFile.cs" />
     <Compile Include="HttpParallelDownloader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Properties\HttpDownloader.rd.xml" />
