@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangoEngine", "MangoEngine\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango", "Mango\Mango.csproj", "{9853F7AD-EDF9-4823-9FC7-86A47955E36D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpParallelDownloader", "HttpParallelDownloader\HttpParallelDownloader.csproj", "{DD29D88E-F10E-4FB7-8AD7-ABB4B717F692}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,22 +55,6 @@ Global
 		{9853F7AD-EDF9-4823-9FC7-86A47955E36D}.Release|x86.ActiveCfg = Release|x86
 		{9853F7AD-EDF9-4823-9FC7-86A47955E36D}.Release|x86.Build.0 = Release|x86
 		{9853F7AD-EDF9-4823-9FC7-86A47955E36D}.Release|x86.Deploy.0 = Release|x86
-		{DD29D88E-F10E-4FB7-8AD7-ABB4B717F692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD29D88E-F10E-4FB7-8AD7-ABB4B717F692}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD29D88E-F10E-4FB7-8AD7-ABB4B717F692}.Debug|ARM.ActiveCfg = Debug|ARM
-		{DD29D88E-F10E-4FB7-8AD7-ABB4B717F692}.Debug|ARM.Build.0 = Debug|ARM
-		{DD29D88E-F10E-4FB7-8AD7-ABB4B717F692}.Debug|x64.ActiveCfg = Debug|x64
-		{DD29D88E-F10E-4FB7-8AD7-ABB4B717F692}.Debug|x64.Build.0 = Debug|x64
-		{DD29D88E-F10E-4FB7-8AD7-ABB4B717F692}.Debug|x86.ActiveCfg = Debug|x86
-		{DD29D88E-F10E-4FB7-8AD7-ABB4B717F692}.Debug|x86.Build.0 = Debug|x86
-		{DD29D88E-F10E-4FB7-8AD7-ABB4B717F692}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD29D88E-F10E-4FB7-8AD7-ABB4B717F692}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DD29D88E-F10E-4FB7-8AD7-ABB4B717F692}.Release|ARM.ActiveCfg = Release|ARM
-		{DD29D88E-F10E-4FB7-8AD7-ABB4B717F692}.Release|ARM.Build.0 = Release|ARM
-		{DD29D88E-F10E-4FB7-8AD7-ABB4B717F692}.Release|x64.ActiveCfg = Release|x64
-		{DD29D88E-F10E-4FB7-8AD7-ABB4B717F692}.Release|x64.Build.0 = Release|x64
-		{DD29D88E-F10E-4FB7-8AD7-ABB4B717F692}.Release|x86.ActiveCfg = Release|x86
-		{DD29D88E-F10E-4FB7-8AD7-ABB4B717F692}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
