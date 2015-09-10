@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangoEngine", "MangoEngine\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango", "Mango\Mango.csproj", "{9853F7AD-EDF9-4823-9FC7-86A47955E36D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpDownloader", "HttpDownloader\HttpDownloader.csproj", "{0D551C6D-083D-409F-8397-5C4FE81D6DD5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,22 @@ Global
 		{9853F7AD-EDF9-4823-9FC7-86A47955E36D}.Release|x86.ActiveCfg = Release|x86
 		{9853F7AD-EDF9-4823-9FC7-86A47955E36D}.Release|x86.Build.0 = Release|x86
 		{9853F7AD-EDF9-4823-9FC7-86A47955E36D}.Release|x86.Deploy.0 = Release|x86
+		{0D551C6D-083D-409F-8397-5C4FE81D6DD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D551C6D-083D-409F-8397-5C4FE81D6DD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D551C6D-083D-409F-8397-5C4FE81D6DD5}.Debug|ARM.ActiveCfg = Debug|ARM
+		{0D551C6D-083D-409F-8397-5C4FE81D6DD5}.Debug|ARM.Build.0 = Debug|ARM
+		{0D551C6D-083D-409F-8397-5C4FE81D6DD5}.Debug|x64.ActiveCfg = Debug|x64
+		{0D551C6D-083D-409F-8397-5C4FE81D6DD5}.Debug|x64.Build.0 = Debug|x64
+		{0D551C6D-083D-409F-8397-5C4FE81D6DD5}.Debug|x86.ActiveCfg = Debug|x86
+		{0D551C6D-083D-409F-8397-5C4FE81D6DD5}.Debug|x86.Build.0 = Debug|x86
+		{0D551C6D-083D-409F-8397-5C4FE81D6DD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D551C6D-083D-409F-8397-5C4FE81D6DD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D551C6D-083D-409F-8397-5C4FE81D6DD5}.Release|ARM.ActiveCfg = Release|ARM
+		{0D551C6D-083D-409F-8397-5C4FE81D6DD5}.Release|ARM.Build.0 = Release|ARM
+		{0D551C6D-083D-409F-8397-5C4FE81D6DD5}.Release|x64.ActiveCfg = Release|x64
+		{0D551C6D-083D-409F-8397-5C4FE81D6DD5}.Release|x64.Build.0 = Release|x64
+		{0D551C6D-083D-409F-8397-5C4FE81D6DD5}.Release|x86.ActiveCfg = Release|x86
+		{0D551C6D-083D-409F-8397-5C4FE81D6DD5}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
