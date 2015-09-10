@@ -52,6 +52,9 @@ namespace HttpDownloader
         public bool AddFile(HttpDownloadFile file)
         {
             //add a file to the download queue.
+            filesToDownload.Add(file);
+
+            return true;
 
         }
         #endregion
