@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Net;
 
 namespace HttpDownloader
 {
@@ -22,6 +23,7 @@ namespace HttpDownloader
             get
             {
                 return maximumDownloadThreads;
+                
             }
             set
             {
