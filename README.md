@@ -1,5 +1,21 @@
 # MangoDownloader
-Mango Downloader is a manga/comic downloader for Windows (for now). Project is inspired by reddit.com/r/manga
+Mango Downloader is a manga/comic downloader for Windows (for now). Project is inspired by reddit.com/r/manga :-)
+
+# Versions
+- Project Mango : 2nd version. WPF Application which uses .NET 4.5 Framework. Use HtmlAgilityPack.
+- Project Mango V3: 3rd iteration. Windows 10 Universall Application. Use AngleSharp
+
+# Project Dependencies
+- Project Mango
+    - HtmlAgilityPack (http://htmlagilitypack.codeplex.com/)
+- Project Mango V3
+    - AngleSharp (https://github.com/AngleSharp/AngleSharp)
+
+# Site Supports:
+- Batoto (V2,V3)
+- MangaHere (V2)
+- Fakku (NSFW) (V2)
+- Pururin (NSFW) (V2)
 
 # Licensing
 
