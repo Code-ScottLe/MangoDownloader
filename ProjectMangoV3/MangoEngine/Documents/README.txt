@@ -1,0 +1,1 @@
+﻿Important:  Transferring from Visual Studio Online to Github (public) under MIT Licensing. 

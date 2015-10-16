@@ -121,6 +121,7 @@
     <Compile Include="Pages\BatotoPage.cs" />
     <Compile Include="Pages\MangaPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Documents\README.txt" />
     <Content Include="Properties\MangoEngine.rd.xml" />
   </ItemGroup>
   <ItemGroup />
