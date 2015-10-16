@@ -1,7 +1,10 @@
 # MangoDownloader
 Mango Downloader is a manga/comic downloader for Windows (for now). Project is inspired by reddit.com/r/manga
 
-<Updating...?
+#Project Dependencies
+- HtmlAgilityPack (http://htmlagilitypack.codeplex.com/)
+
+<Updating...>
 
 # Licensing
 The MIT License (MIT)
