@@ -1,10 +1,14 @@
 # MangoDownloader
-Mango Downloader is a manga/comic downloader for Windows (for now). Project is inspired by reddit.com/r/manga
+Mango Downloader is a manga/comic downloader for Windows (for now). Project is inspired by reddit.com/r/manga :-)
 
 #Project Dependencies
 - HtmlAgilityPack (http://htmlagilitypack.codeplex.com/)
 
-<Updating...>
+# Site Supports:
+- Batoto 
+- MangaHere 
+- Fakku (NSFW)
+- Pururin (NSFW)
 
 # Licensing
 The MIT License (MIT)
