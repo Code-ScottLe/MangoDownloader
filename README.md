@@ -10,6 +10,7 @@ Mango Downloader is a manga/comic downloader for Windows (for now). Project is i
     - HtmlAgilityPack (http://htmlagilitypack.codeplex.com/)
 - Project Mango V3
     - AngleSharp (https://github.com/AngleSharp/AngleSharp)
+    - Jint (https://github.com/sebastienros/jint)
 
 # Site Supports:
 - Batoto (V2,V3)
