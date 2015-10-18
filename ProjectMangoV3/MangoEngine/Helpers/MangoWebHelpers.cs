@@ -47,5 +47,56 @@ namespace MangoEngine.Helpers
 
             throw new AggregateException(exceptions);
         }
+
+        public static async Task<KeyValuePair<Stream,string>> GetCompressedStreamAsync(HttpClient myClient, string url, TimeSpan retryInterval, int retryCount = 3)
+        {
+            /*Get a stream from source that will be compressed*/
+
+            //List of exceptions
+            List<Exception> exceptions = new List<Exception>();
+
+            //Place holder.
+            HttpResponseMessage myRespond = null;
+
+            //Loop with the given amount of trials
+            for (int retry = 0; retry < retryCount; retry++)
+            {
+                try
+                {
+                    //Make a GET request to the given URL
+                    myRespond = await myClient.GetAsync(url);
+
+                    //if success, get out of the loop
+                    break;
+
+                }
+
+                catch(Exception ex)
+                {
+                    //exception was caught, add to the list 
+                    exceptions.Add(ex);
+
+                    //Wait until try again
+                    await Task.Delay(retryInterval);
+                }
+            }
+
+            //check if the respond is still null.
+            if (myRespond == null)
+            {
+                //is null, return null stream.
+                return new KeyValuePair<Stream, string>(null, null);
+            }
+
+            //Got the request, get the compression Type
+            string compressed = GetCompression(myRespond);
+
+            //Get the stream
+            Stream sourceStream = await myRespond.Content.ReadAsStreamAsync();
+
+            //return the pair.
+            return new KeyValuePair<Stream, string>(sourceStream, compressed);
+            
+        }
     }
 }
