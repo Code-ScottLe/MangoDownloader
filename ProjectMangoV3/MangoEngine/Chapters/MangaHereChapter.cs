@@ -86,6 +86,13 @@ namespace MangoEngine.Chapters
 
             /*MangaHere has the list of all the pages with links in a drop down*/
             //Get the select node wich contains all the pages with links
+            var selectNode = mangaHereDocument.All.Where(n => n.ClassName == "wid60" && (n as IHtmlSelectElement) != null).Select(n => n).First();
+
+            //Iterate through the entire collection and grab all the links.
+            for (int i = 0; i < selectNode.Children.Count(); i++)
+            {
+
+            }
             
 
 
