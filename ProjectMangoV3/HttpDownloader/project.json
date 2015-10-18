@@ -1,6 +1,5 @@
 ﻿{
   "dependencies": {
-    "AngleSharp": "0.9.3",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0"
   },
   "frameworks": {
