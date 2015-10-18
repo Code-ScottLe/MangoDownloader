@@ -55,10 +55,13 @@ namespace MangoEngine.Chapters
 
             //Try to get the stream to the website.
             Stream mangaHereStream = null;
+            string compressionType = string.Empty;
 
             try
             {
-                mangaHereStream = await MangoWebHelpers.GetStreamAsync(myClient, BaseUrl, new TimeSpan(0, 0, 3));
+                KeyValuePair<Stream, string> temp = await MangoWebHelpers.GetCompressedStreamAsync(myClient, BaseUrl, new TimeSpan(0, 0, 3));
+                mangaHereStream = temp.Key;
+                compressionType = temp.Value;
             }
 
             catch (Exception e)
@@ -72,7 +75,7 @@ namespace MangoEngine.Chapters
             HtmlParser parser = new HtmlParser();
 
             //Check if the stream is compressed, MangaHere uses random GZip at times.
-            if (MangoWebHelpers.GetCompression(await myClient.GetAsync(BaseUrl)) == "GZip")
+            if (compressionType == "GZip")
             {
                 //stream is compressed, decompress stream.
                 mangaHereStream = new GZipStream(mangaHereStream,CompressionMode.Decompress);
