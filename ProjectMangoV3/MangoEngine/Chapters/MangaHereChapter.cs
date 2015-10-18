@@ -12,6 +12,7 @@ using AngleSharp.Dom.Html;
 using System.Net.Http;
 using System.IO;
 using System.IO.Compression;
+using MangoEngine.Pages;
 
 namespace MangoEngine.Chapters
 {
@@ -84,17 +85,33 @@ namespace MangoEngine.Chapters
             //Parse the document
             var mangaHereDocument = await parser.ParseAsync(mangaHereStream);
 
-            /*MangaHere has the list of all the pages with links in a drop down*/
-            //Get the select node wich contains all the pages with links
-            var selectNode = mangaHereDocument.All.Where(n => n.ClassName == "wid60" && (n as IHtmlSelectElement) != null).Select(n => n).First();
+            //Async Wrapper
 
-            //Iterate through the entire collection and grab all the links.
-            for (int i = 0; i < selectNode.Children.Count(); i++)
+            await Task.Run(() =>
             {
+                /*MangaHere has the list of all the pages with links in a drop down*/
+                //Get the select node wich contains all the pages with links
+                var selectNode = mangaHereDocument.All.Where(n => n.ClassName == "wid60" && (n as IHtmlSelectElement) != null).Select(n => n).First();
 
-            }
-            
+                //Iterate through the entire collection and grab all the links.
+                for (int i = 0; i < selectNode.Children.Count(); i++)
+                {
+                    //Get the url.
+                    string url = selectNode.Children[i].Attributes["value"].Value;
 
+                    //Create a MangaHere page from it.
+                    MangaHerePage myPage = new MangaHerePage(url);
+                    myPage.PageIndex = i + 1;
+
+                    //Put that onto the list.
+                    Pages.Add(myPage);
+                }
+
+                //Done adding, try to get the Chapter Title and Manga Title?
+            });
+
+
+           
 
         }
         #endregion
