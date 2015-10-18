@@ -84,8 +84,9 @@ namespace MangoEngine.Helpers
             //check if the respond is still null.
             if (myRespond == null)
             {
-                //is null, return null stream.
-                return new KeyValuePair<Stream, string>(null, null);
+                //is null, throw the entire list of exceptions.
+                throw new AggregateException(exceptions);
+
             }
 
             //Got the request, get the compression Type
