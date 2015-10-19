@@ -17,7 +17,7 @@ using MangoEngine.Pages;
 namespace MangoEngine.Chapters
 {
     public class MangaHereChapter : MangaChapter
-    {
+    { 
         #region Fields
         /*Fields*/
         #endregion
@@ -122,7 +122,7 @@ namespace MangoEngine.Chapters
                 var rawArrayScriptNode = mangaHereDocument.Scripts.Where(n => n.InnerHtml.Contains("get_chapters")).Select(n => n).First();
 
                 //Get the list of Chapter Title with links
-                var ChapterListWithLinks = GetChaptersListWithLinksAsync(myClient,defineScriptNode, rawArrayScriptNode).Result; //Force to block.
+                var ChapterTitle = GetCurrentChapterTitleAsync(myClient,defineScriptNode, rawArrayScriptNode).Result; //Force to block.
 
                 //Get the current chapter.
 
@@ -134,7 +134,7 @@ namespace MangoEngine.Chapters
         }
 
 
-        private async Task<List<KeyValuePair<string, string>>> GetChaptersListWithLinksAsync(HttpClient myClient, IHtmlScriptElement defineScript, IHtmlScriptElement ArrayQueueScript)
+        private async Task<string> GetCurrentChapterTitleAsync(HttpClient myClient, IHtmlScriptElement defineScript, IHtmlScriptElement ArrayQueueScript)
         {
             /*Get the list of available chapters + descriptions with its urls.
             Values return are List of KeyValuePair<ChapterDescription,Url>*/
@@ -164,7 +164,7 @@ namespace MangoEngine.Chapters
             //Done getting array scripts
 
             //Async-Wrapper
-            return await Task.Run<List<KeyValuePair<string, string>>>(() =>
+            return await Task.Run<string>(() =>
            {
                //create Jint Engine
                Jint.Engine myEngine = new Jint.Engine();
@@ -185,6 +185,24 @@ namespace MangoEngine.Chapters
                    throw new MangoException("Can't get rawChapterList! Can't cast the return value from Jint Engine to IENumerable<Object>");
                }
 
+               //get the current chapter code
+               string current_chapter = myEngine.GetValue("current_chapter").ToString();        //Please verify.
+
+               var ChapterTitleWithLinks = rawChapterList.Where(n =>
+               {
+                   //cast the object as the Iterable objects.
+                   var tempArray = n as IEnumerable<object>;
+
+                   //the Iterable object consist of 2 object, 0 is the chapter title and 1 is the according links to the chapter.
+                   //get the URL.
+                   string url = tempArray.ElementAt(1) as string;
+                   //make sure to get only the current chapter.
+                   return (!string.IsNullOrEmpty(url)) && url.Contains(current_chapter);
+               }).Select(n => n).First();
+
+               string chapterTitle = (ChapterTitleWithLinks as IEnumerable<object>).ElementAt(0) as string;
+
+               /*
                //Create the list to return.
                List<KeyValuePair<string, string>> ChaptersList = new List<KeyValuePair<string, string>>();
 
@@ -205,6 +223,10 @@ namespace MangoEngine.Chapters
                }
 
                return ChaptersList;
+               */
+
+               return chapterTitle;
+
            });
         }
         #endregion
