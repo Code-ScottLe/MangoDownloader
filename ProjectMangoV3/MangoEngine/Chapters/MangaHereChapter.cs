@@ -87,7 +87,7 @@ namespace MangoEngine.Chapters
 
             //Async Wrapper
 
-            await Task.Run(() =>
+            await Task.Run( () =>
             {
                 /*MangaHere has the list of all the pages with links in a drop down*/
                 //Get the select node wich contains all the pages with links
@@ -108,6 +108,24 @@ namespace MangoEngine.Chapters
                 }
 
                 //Done adding, try to get the Chapter Title and Manga Title?
+
+                //Get the Div node that containt the name.
+                var divNode = mangaHereDocument.All.Where(n => n.ClassName == "title" && n.NodeName == "DIV").Select(n => n).First();
+
+                //Grap the Title
+                //MangaTitle = divNode.InnerHtml.Substring(0, divNode.InnerHtml.IndexOf("Manga"));
+
+                //Get the script node that has all the define statments.
+                var defineScriptNode = mangaHereDocument.Scripts.Where(n => n.InnerHtml.Contains("series_name")).Select(n => n).First();
+
+                //Get the script node that contain the link to the js script that contain the array of chapters with links
+                var rawArrayScriptNode = mangaHereDocument.Scripts.Where(n => n.InnerHtml.Contains("get_chapters")).Select(n => n).First();
+
+                //Get the list of Chapter Title with links
+                var ChapterListWithLinks = GetChaptersListWithLinksAsync(myClient,defineScriptNode, rawArrayScriptNode).Result; //Force to block.
+
+                //Get the current chapter.
+
             });
 
 
@@ -116,7 +134,7 @@ namespace MangoEngine.Chapters
         }
 
 
-        private async Task<List<KeyValuePair<string, string>>> GetChaptersListWithLinks(HttpClient myClient, IHtmlScriptElement defineScript, IHtmlScriptElement ArrayQueueScript)
+        private async Task<List<KeyValuePair<string, string>>> GetChaptersListWithLinksAsync(HttpClient myClient, IHtmlScriptElement defineScript, IHtmlScriptElement ArrayQueueScript)
         {
             /*Get the list of available chapters + descriptions with its urls.
             Values return are List of KeyValuePair<ChapterDescription,Url>*/
