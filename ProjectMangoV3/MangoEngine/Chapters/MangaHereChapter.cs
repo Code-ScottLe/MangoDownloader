@@ -114,6 +114,81 @@ namespace MangoEngine.Chapters
            
 
         }
+
+
+        private async Task<List<KeyValuePair<string, string>>> GetChaptersListWithLinks(HttpClient myClient, IHtmlScriptElement defineScript, IHtmlScriptElement ArrayQueueScript)
+        {
+            /*Get the list of available chapters + descriptions with its urls.
+            Values return are List of KeyValuePair<ChapterDescription,Url>*/
+
+            //Get the define scripts
+            string jsDefineScript = defineScript.InnerHtml;
+
+            //Parse the ArrayQueueScript for the link to the javascript array.
+            //Get the first statement call of the script node, which is something like this:
+            // $LAB.queueScript('http://www.mangahere.co/get_chapters8471.js?v=20151012145213');
+            //                             We are interested in this link right here.  
+
+            string rawArrayQueueScriptString = ArrayQueueScript.InnerHtml.Substring(0, ArrayQueueScript.InnerHtml.IndexOf(';'));
+
+            //split the string based on the ' char.
+            string[] tempStringArray = rawArrayQueueScriptString.Split('\'');
+
+            //the url should be on the index 1.
+            string jsArrayUrl = tempStringArray[1];
+
+            //Get the Script file from the URL
+            string jsArrayRawScript = await myClient.GetStringAsync(jsArrayUrl);
+
+            //Get the first function from the jsArrayRawScript (where the array get defined)
+            string jsArrayScript = jsArrayRawScript.Substring(0, jsArrayRawScript.IndexOf(";"));
+
+            //Done getting array scripts
+
+            //Async-Wrapper
+            return await Task.Run<List<KeyValuePair<string, string>>>(() =>
+           {
+               //create Jint Engine
+               Jint.Engine myEngine = new Jint.Engine();
+
+               //Execute the define script
+               myEngine.Execute(jsDefineScript);
+
+               //Execute the array define script.
+               myEngine.Execute(jsArrayScript);
+
+               //Get the Array in the chapter_list value
+               IEnumerable<object> rawChapterList = myEngine.GetValue("chapter_list").ToObject() as IEnumerable<object>;
+
+               //Safety check
+               if (rawChapterList == null)
+               {
+                   //something is wrong
+                   throw new MangoException("Can't get rawChapterList! Can't cast the return value from Jint Engine to IENumerable<Object>");
+               }
+
+               //Create the list to return.
+               List<KeyValuePair<string, string>> ChaptersList = new List<KeyValuePair<string, string>>();
+
+               //Iterate through the list of Chapters.
+               foreach (object chapterUrlPair in rawChapterList)
+               {
+                   //cast the value as an Array to access.
+                   var tempArray = chapterUrlPair as IEnumerable<object>;
+
+                   //get the chapter title
+                   string chapterTitlle = tempArray.ElementAt(0) as string;
+
+                   //Get the url
+                   string chapterUrl = tempArray.ElementAt(1) as string;
+
+                   //Put onto the list
+                   ChaptersList.Add(new KeyValuePair<string, string>(chapterTitlle, chapterUrl));
+               }
+
+               return ChaptersList;
+           });
+        }
         #endregion
 
 
