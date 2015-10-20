@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chapters\BatotoChapter.cs" />
+    <Compile Include="Chapters\IMangaChapter.cs" />
     <Compile Include="Chapters\MangaChapter.cs" />
     <Compile Include="Chapters\MangaHereChapter.cs" />
     <Compile Include="Exceptions\MangoException.cs" />
