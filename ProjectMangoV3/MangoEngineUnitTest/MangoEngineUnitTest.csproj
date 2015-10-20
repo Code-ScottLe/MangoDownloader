@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChapterTests\BatotoChapterTests.cs" />
+    <Compile Include="ChapterTests\MangaHereChapterTests.cs" />
     <Compile Include="PageTests\BatotoPageTests.cs" />
     <Compile Include="PageTests\MangaHerePageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
