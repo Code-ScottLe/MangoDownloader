@@ -28,41 +28,19 @@ namespace MangoEngineUnitTest.ChapterTests
 
             //Test
             //Source Name
-            SourceNameCheckTest(testChapter, sourceNameActual);
+            Assert.AreEqual(testChapter.SourceName, sourceNameActual);
 
             //Manga Title
-            MangaTitleCheckTest(testChapter, mangaTitleActual);
+            Assert.AreEqual(testChapter.MangaTitle, mangaTitleActual);
 
             //Chapter Title
-            ChapterTitleCheckTest(testChapter, chapterTitleActual);
+            Assert.AreEqual(testChapter.ChapterTitle, chapterTitleActual);
 
             //Page Count
-            PageCountCheckTest(testChapter, pageCountActual);
+            Assert.AreEqual(testChapter.PageCount, pageCountActual);
 
         }
 
-        [TestMethod]
-        private void SourceNameCheckTest(BatotoChapter testChapter, string actualSourceName)
-        {
-            Assert.AreEqual(testChapter.SourceName, actualSourceName);
-        }
-
-        [TestMethod]
-        private void MangaTitleCheckTest(BatotoChapter testChapter, string actualMangaTitle)
-        {
-            Assert.AreEqual(testChapter.MangaTitle, actualMangaTitle);
-        }
-
-        [TestMethod]
-        private void ChapterTitleCheckTest(BatotoChapter testChapter, string actualChapterTitle)
-        {
-            Assert.AreEqual(testChapter.ChapterTitle, actualChapterTitle);
-        }
-
-        [TestMethod]
-        private void PageCountCheckTest(BatotoChapter testChapter, int actualPageCount)
-        {
-            Assert.AreEqual(testChapter.PageCount, actualPageCount);
-        }
+        
     }
 }
