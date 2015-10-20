@@ -113,7 +113,7 @@ namespace MangoEngine.Chapters
                 //Done adding, try to get the Chapter Title and Manga Title?
 
                 //Get the Div node that containt the name.
-                var divNode = mangaHereDocument.All.Where(n => n.ClassName == "title" && n.NodeName == "DIV").Select(n => n).First();
+                var divNode = mangaHereDocument.All.Where(n => n.ClassName == "title" && n.NodeName == "DIV").Select(n => n).ElementAt(1);
 
                 //Grap the Title
                 string title = divNode.LastElementChild.TextContent;
