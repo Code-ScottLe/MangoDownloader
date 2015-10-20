@@ -8,6 +8,7 @@ using System.Net;
 
 namespace HttpDownloader
 {
+    [Obsolete("On hold without further development/resume date")]
     public class HttpParallelDownloader
     {
         #region Fields
