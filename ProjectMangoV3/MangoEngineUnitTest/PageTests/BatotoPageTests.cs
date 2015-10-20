@@ -10,7 +10,7 @@ namespace MangoEngineUnitTest.PageTests
     {
 
         [TestMethod]
-        public async Task GetImgLinkTest()
+        public async Task GetImgUrlTest()
         {
             /*Test for the returned IMG Link from the page*/
 
@@ -21,10 +21,10 @@ namespace MangoEngineUnitTest.PageTests
             string imgUrl = await testPage.GetImageUrlAsync();
 
             //expected result:
-            string imgUrlSource = "http://img.bato.to/comics/2015/04/17/i/read5530a2d7d4d52/img000002.jpg";
+            string imgUrlActual = "http://img.bato.to/comics/2015/04/17/i/read5530a2d7d4d52/img000002.jpg";
 
             //Check for mismatch
-            Assert.AreEqual(imgUrl, imgUrlSource);
+            Assert.AreEqual(imgUrl, imgUrlActual);
 
         }
 
