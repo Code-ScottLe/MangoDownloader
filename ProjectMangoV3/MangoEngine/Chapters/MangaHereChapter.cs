@@ -141,8 +141,7 @@ namespace MangoEngine.Chapters
 
         private async Task<string> GetCurrentChapterTitleAsync(HttpClient myClient, IHtmlScriptElement defineScript, IHtmlScriptElement ArrayQueueScript)
         {
-            /*Get the list of available chapters + descriptions with its urls.
-            Values return are List of KeyValuePair<ChapterDescription,Url>*/
+            /*Get the current chapter description*/
 
             //Get the define scripts
             string jsDefineScript = defineScript.InnerHtml;
@@ -206,29 +205,6 @@ namespace MangoEngine.Chapters
                }).Select(n => n).First();
 
                string chapterTitle = (ChapterTitleWithLinks as IEnumerable<object>).ElementAt(0) as string;
-
-               /*
-               //Create the list to return.
-               List<KeyValuePair<string, string>> ChaptersList = new List<KeyValuePair<string, string>>();
-
-               //Iterate through the list of Chapters.
-               foreach (object chapterUrlPair in rawChapterList)
-               {
-                   //cast the value as an Array to access.
-                   var tempArray = chapterUrlPair as IEnumerable<object>;
-
-                   //get the chapter title
-                   string chapterTitlle = tempArray.ElementAt(0) as string;
-
-                   //Get the url
-                   string chapterUrl = tempArray.ElementAt(1) as string;
-
-                   //Put onto the list
-                   ChaptersList.Add(new KeyValuePair<string, string>(chapterTitlle, chapterUrl));
-               }
-
-               return ChaptersList;
-               */
 
                return chapterTitle;
 
