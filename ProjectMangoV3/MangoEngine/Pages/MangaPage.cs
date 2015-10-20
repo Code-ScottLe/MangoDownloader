@@ -39,12 +39,9 @@ namespace MangoEngine.Pages
         {
             get
             {
-                if (!string.IsNullOrEmpty(_imgUrl))
-                {
-                    return _imgUrl;
-                }
 
-                throw new MangoException("ImgUrl is null! Please run GetImageUrlAsync()");
+                return _imgUrl;
+                              
             }
 
             protected set
