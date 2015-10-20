@@ -7,7 +7,7 @@ using MangoEngine.Exceptions;
 
 namespace MangoEngine.Pages
 {
-    public abstract class MangaPage
+    public abstract class MangaPage : IMangaPage
     {
         #region Fields;
         /*Fields*/
@@ -44,7 +44,7 @@ namespace MangoEngine.Pages
                               
             }
 
-            protected set
+            set
             {
                 _imgUrl = value;
             }
@@ -70,7 +70,7 @@ namespace MangoEngine.Pages
                 return _sourceName;
             }
 
-            protected set
+            set
             {
                 _sourceName = value;
             }

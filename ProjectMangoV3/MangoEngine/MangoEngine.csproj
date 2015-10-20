@@ -119,6 +119,7 @@
     <Compile Include="Exceptions\MangoException.cs" />
     <Compile Include="Helpers\MangoWebHelpers.cs" />
     <Compile Include="Pages\BatotoPage.cs" />
+    <Compile Include="Pages\IMangaPage.cs" />
     <Compile Include="Pages\MangaHerePage.cs" />
     <Compile Include="Pages\MangaPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
