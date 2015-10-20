@@ -81,7 +81,7 @@ namespace MangoEngine.Pages
             ImgUrl = imgLink;
 
             //return the result
-            return ImgUrl;
+            return imgLink;
         }
         #endregion
 
