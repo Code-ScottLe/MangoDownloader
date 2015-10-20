@@ -97,6 +97,9 @@ namespace MangoEngine.Chapters
                     Pages.Add(myPage);
                 }
 
+                //Set the page count
+                PageCount = Pages.Count;
+
                 //Get the Ul Node that contains everthin in the frame
                 var UlNode = selectNode.ParentElement.ParentElement;
 
