@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace MangoEngineUnitTest.PageTests
 {
     [TestClass]
-    public class BatotoPageTest
+    public class BatotoPageTests
     {
 
         [TestMethod]
