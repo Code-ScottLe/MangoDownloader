@@ -96,6 +96,7 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChapterTests\BatotoChapterTests.cs" />
     <Compile Include="PageTests\BatotoPageTests.cs" />
     <Compile Include="PageTests\MangaHerePageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -133,7 +134,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ChapterTests\" />
     <Folder Include="HelperTests\" />
   </ItemGroup>
   <ItemGroup>
