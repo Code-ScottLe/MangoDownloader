@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 namespace MangoEngineUnitTest
 {
     [TestClass]
-    public class UnitTest1
+    public class MangoEngineTests
     {
         [TestMethod]
         public void TestMethod1()
