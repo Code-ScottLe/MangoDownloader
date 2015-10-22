@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MangoEngine.Chapters
 {
-    public abstract class MangaChapter
+    public abstract class MangaChapter : IMangaChapter
     {
         /*Represent a chapter of a manga*/
 
@@ -24,7 +24,7 @@ namespace MangoEngine.Chapters
         private string _baseUrl;
 
         //custom data
-        private List<MangaPage> _pages;
+        private List<IMangaPage> _pages;
 
         #endregion
 
@@ -95,7 +95,7 @@ namespace MangoEngine.Chapters
             }
         }
 
-        public List<MangaPage> Pages
+        public List<IMangaPage> Pages
         {
             get { return _pages; }
             protected set { _pages = value; }
@@ -113,7 +113,7 @@ namespace MangoEngine.Chapters
             _chapterTitle = string.Empty;
             _pagesCount = -1;
             _baseUrl = string.Empty;
-            _pages = new List<MangaPage>();
+            _pages = new List<IMangaPage>();
         }
 
         public MangaChapter(string url): this()

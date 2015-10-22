@@ -9,14 +9,15 @@ namespace MangoEngine.Chapters
 {
     public interface IMangaChapter
     {
+        /*Will be used later for testing out Fakes*/
         #region Properties
         /*Properties*/
-        string SourceName { get; set; }
-        string MangaTitle { get; set; }
-        string ChapterTitle { get; set; }
-        int PageCount { get; set; }
-        string BaseUrl { get; set; }
-        List<IMangaPage> Pages { get; set; }
+        string SourceName { get;}
+        string MangaTitle { get;}
+        string ChapterTitle { get;}
+        int PageCount { get; }
+        string BaseUrl { get;}
+        List<IMangaPage> Pages { get; }
         #endregion
 
         #region Method
