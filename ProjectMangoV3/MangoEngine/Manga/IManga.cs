@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MangoEngine.Chapters;
 
 namespace MangoEngine.Manga
 {
@@ -12,6 +13,19 @@ namespace MangoEngine.Manga
 
         #region Properties
         /*Properties*/
+
+        //Source name
+        string SourceName { get; }
+
+        //name of the manga
+        string Name { get; }
+
+        //Author
+        string Author { get; }
+
+        //List of chaters
+        IEnumerable<IMangaChapter> Chapters { get; }
+
         #endregion
 
         #region Methods
