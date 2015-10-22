@@ -24,7 +24,7 @@ namespace MangoEngine.Manga
         string Author { get; }
 
         //List of chaters
-        IEnumerable<IMangaChapter> Chapters { get; }
+        List<IMangaChapter> Chapters { get; }
 
         #endregion
 
