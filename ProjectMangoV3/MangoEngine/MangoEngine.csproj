@@ -120,6 +120,7 @@
     <Compile Include="Exceptions\MangoException.cs" />
     <Compile Include="Helpers\MangoWebHelpers.cs" />
     <Compile Include="Manga\IManga.cs" />
+    <Compile Include="Manga\Manga.cs" />
     <Compile Include="Pages\BatotoPage.cs" />
     <Compile Include="Pages\IMangaPage.cs" />
     <Compile Include="Pages\MangaHerePage.cs" />
